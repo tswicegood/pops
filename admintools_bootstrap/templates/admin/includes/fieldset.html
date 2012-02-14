@@ -1,22 +1,57 @@
-<fieldset class="module aligned {{ fieldset.classes }} well">
+{% if 'collapse' in fieldset.classes %}
+<div class="accordion collapsed_fieldset" id="{{ fieldset.name|slugify }}">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#{{ fieldset.name|slugify }}" href="#{{ fieldset.name|slugify }}_fs">{{ fieldset.name }}</a>
+    </div>
+    <div id="{{ fieldset.name|slugify }}_fs" class="accordion-body collapse">
+      <fieldset class="module aligned {{ fieldset.classes|cut:"collapse" }} accordion-inner">
+          {% if fieldset.description %}
+              <div class="description">{{ fieldset.description|safe }}</div>
+          {% endif %}
+          {% for line in fieldset %}
+              <div class="control-group{% if line.errors %} error{% endif %}">
+                  {% for field in line %}
+                          {% if not line.fields|length_is:'1' and not field.is_readonly %}{{ field.errors }}{% endif %}
+                              {{ field.label_tag }}
+                              <div class="controls">
+                                {% if field.is_readonly %}
+                                      {{ field.contents }}
+                                {% else %}
+                                      {{ field.field }}
+                                      {{ line.errors }}
+                                {% endif %}
+                                {% if field.field.help_text %}
+                                    <span class="help-inline">{{ field.field.help_text|safe }}</span>
+                                {% endif %}
+                              </div>
+
+                  {% endfor %}
+              </div>
+          {% endfor %}
+      </fieldset>
+    </div>
+  </div>
+</div>
+{% else %}
+<fieldset class="module aligned {{ fieldset.classes }} well control-group">
     {% if fieldset.name %}<h2>{{ fieldset.name }}</h2>{% endif %}
     {% if fieldset.description %}
         <div class="description">{{ fieldset.description|safe }}</div>
     {% endif %}
     {% for line in fieldset %}
-        <div class="clearfix form-row{% if line.errors %} error{% endif %}">
+        <div class="control-group{% if line.errors %} error{% endif %}">
             {% for field in line %}
                     {% if not line.fields|length_is:'1' and not field.is_readonly %}{{ field.errors }}{% endif %}
-
                         {{ field.label_tag }}
-                        {% if field.is_readonly %}
-                            <div class="readonly-input input">{{ field.contents }}</div>
-                        {% else %}
-                            <div class="input">
-                              {{ field.field }}
-                              {{ line.errors }}
-                            </div>
-                        {% endif %}
+                        <div class="controls">
+                          {% if field.is_readonly %}
+                                {{ field.contents }}
+                          {% else %}
+                                {{ field.field }}
+                                {{ line.errors }}
+                          {% endif %}
+                        </div>
 
                     {% if field.field.help_text %}
                         <div class="input help_text">{{ field.field.help_text|safe }}</div>
@@ -25,3 +60,4 @@
         </div>
     {% endfor %}
 </fieldset>
+{% endif %}

@@ -6,20 +6,22 @@
 {% endif %}
 {% if results %}
 <div class="results">
-<table cellspacing="0" id="result_list" class="bordered-table zebra-striped">
+<table cellspacing="0" id="result_list" class="table table-striped table-condensed table-bordered">
 <thead>
 <tr>
 {% for header in result_headers %}
 <th scope="col" {{ header.class_attrib }}>
-   <div class="text">{% if header.sortable %}<a href="{{ header.url_primary }}">{{ header.text|capfirst }}</a>{% else %}<span>{{ header.text|capfirst }}</span>{% endif %}</div>
    {% if header.sortable %}
      {% if header.sort_priority > 0 %}
-       <div class="sortoptions label notice">
-         <a href="{{ header.url_toggle }}" class="ui-icon {% if header.ascending %}ui-icon-triangle-1-n{% else %}ui-icon-triangle-1-s{% endif %}" title="{% trans "Toggle sorting" %}"></a>
-         <a class="ui-icon ui-icon-close" href="{{ header.url_remove }}" title="{% trans "Remove from sorting" %}"></a>
-       </div>
+      <div class="btn-group pull-right sortoptions">
+         <a href="{{ header.url_toggle }}" class="btn" title="{% trans "Toggle sorting" %}">
+          <i class="{% if header.ascending %}icon-chevron-up{% else %}icon-chevron-down{% endif %}"></i>
+         </a>
+         <a class="btn btn-danger" href="{{ header.url_remove }}" title="{% trans "Remove from sorting" %}"><i class="icon-remove icon-white"></i></a>
+      </div>
      {% endif %}
    {% endif %}
+   <div class="text">{% if header.sortable %}<a href="{{ header.url_primary }}">{{ header.text|capfirst }}</a>{% else %}<span>{{ header.text|capfirst }}</span>{% endif %}</div>
    <div class="clear"></div>
 </th>{% endfor %}
 </tr>

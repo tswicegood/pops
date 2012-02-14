@@ -37,9 +37,6 @@
     });
 })(django.jQuery);
 
-$(function(){
-  $('.bts').buttonset();
-});
 </script>
 {% endif %}{% endif %}
 
@@ -59,11 +56,12 @@ $(function(){
 
 {% block object-tools %}
   {% if has_add_permission %}
-    <div class="pull-right">
+    <div class="pull-right object-tools">
       {% block object-tools-items %}
-          <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="btn primary">+
-            {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
-          </a>
+        <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="btn btn-primary">
+          <i class="icon-plus icon-white"></i>
+          {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
+        </a>
       {% endblock %}
     </div>
   {% endif %}
@@ -74,7 +72,7 @@ $(function(){
 {% block messages %}
   {{ block.super }}
   {% if cl.formset.errors %}
-    <div class="alert-message error{% if cl.formset.non_form_errors %} block-message{% endif %}" data-alert="alert"><a class="close" href="#">x</a>
+    <div class="alert alert-error{% if cl.formset.non_form_errors %} alert-block{% endif %}" data-alert="alert"><a class="close" href="#">x</a>
       {% blocktrans count cl.formset.errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
       {{ cl.formset.non_form_errors }}
     </div>
@@ -82,17 +80,16 @@ $(function(){
 {% endblock %}
 {% block content %}
   <div id="content-main">
-
     {% block filters %}
       {% if cl.has_filters %}
-        <div id="changelist-filter" class="sidebar well">
-          <h2>{% trans 'Filter' %}</h2>
+        <div id="changelist-filter" class="well pull-right span2">
+          <h4>{% trans 'Filter' %}</h4>
           {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
         </div>
       {% endif %}
     {% endblock %}
 
-    <div class="module{% if cl.has_filters %} content{% else %} container-fluid{% endif %}" id="changelist">
+    <div class="{% if cl.has_filters %}filtered-content{% else %}container-fluid{% endif %}" id="changelist">
       {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
 
       <form id="changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
@@ -107,7 +104,6 @@ $(function(){
       {% endblock %}
       {% block pagination %}{% bootstrap_pagination cl %}{% endblock %}
       </form>
-
     </div>
   </div>
 {% endblock %}

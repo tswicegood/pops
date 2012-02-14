@@ -3,9 +3,12 @@
 {% if not item.is_empty %}
 <li class="{% if not item.enabled %} disabled{% endif %}{% if selected %} active{% endif %}{% if item.css_classes %} {{ item.css_classes|join:' ' }}{% endif %}{% if item.children %} dropdown{% endif %}">
 <a href="{% if item.url and item.enabled %}{{ item.url }}{% else %}#{% endif %}"{% if item.description %} title="{{ item.description }}"{% endif %}{% if item.accesskey %} accesskey="{{ item.accesskey }}"{% endif %}
-  {% if item.children and item.enabled %}class="dropdown-toggle"{% endif %}>
-    {% if item.icon %}<span class="ui-icon {{ item.icon }}"></span>{% endif %}
+  {% if item.children and item.enabled %}class="dropdown-toggle" data-toggle="dropdown"{% endif %}>
+    {% if item.icon %}<i class="{{ item.icon }}"></i> {% endif %}
   {{ item.title }}
+    {% if item.children and item.enabled %}
+      <b class="caret"></b>
+    {% endif %}
   </a>
     {% if item.children and item.enabled %}
     <ul class="{% if index == 'submenu' %}submenu open{% else %}dropdown-menu{% endif %}">
