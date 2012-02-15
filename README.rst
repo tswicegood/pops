@@ -51,6 +51,13 @@ You can display icon from JQuery UI icon set on menu items. Add icon argument to
  )
 
 
+Display fieldsets as tabs in changeform (0.0.2 version only)
+------------------------------------------------------------
+
+* user fieldsets attribute in your ModelAdmin class
+* every fieldset should have name (first item in fieldset definition list)
+* use change_form_template = 'admintools_bootstrap/tabbed_change_form.html' attribute in ModelAdmin
+
 Settings
 --------
 
