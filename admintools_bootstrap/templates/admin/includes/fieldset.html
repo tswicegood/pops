@@ -25,7 +25,6 @@
                                     <span class="help-inline">{{ field.field.help_text|safe }}</span>
                                 {% endif %}
                               </div>
-
                   {% endfor %}
               </div>
           {% endfor %}
@@ -34,7 +33,7 @@
   </div>
 </div>
 {% else %}
-<fieldset class="module aligned {{ fieldset.classes }} well control-group">
+<fieldset class="module aligned {{ fieldset.classes }} well control-group"{% if fieldset.name %} id="{{ fieldset.name|slugify }}"{% endif %}>
     {% if fieldset.name %}<h2>{{ fieldset.name }}</h2>{% endif %}
     {% if fieldset.description %}
         <div class="description">{{ fieldset.description|safe }}</div>
@@ -51,11 +50,11 @@
                                 {{ field.field }}
                                 {{ line.errors }}
                           {% endif %}
+                          {% if field.field.help_text %}
+                              <div class="help-inline">{{ field.field.help_text|safe }}</div>
+                          {% endif %}
                         </div>
 
-                    {% if field.field.help_text %}
-                        <div class="input help_text">{{ field.field.help_text|safe }}</div>
-                    {% endif %}
             {% endfor %}
         </div>
     {% endfor %}

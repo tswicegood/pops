@@ -175,7 +175,7 @@ $(function(){
         {% block messages %}
           {% if messages %}
               {% for message in messages %}
-                <div class="alert-message {{ message.tags }}" data-alert="alert"><a class="close" href="#">x</a>{{ message }}</div>
+                <div class="alert alert-{{ message.tags }}" data-alert="alert"><a class="close" href="#">&times;</a>{{ message }}</div>
               {% endfor %}
           {% endif %}
         {% endblock %}
