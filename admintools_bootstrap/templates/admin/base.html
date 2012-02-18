@@ -90,6 +90,8 @@ $(function(){
     } 
   });
 
+  $('fieldset label').addClass('control-label');
+
 });
 </script>
 </head>
@@ -101,14 +103,15 @@ $(function(){
 <div id="container" class="container-fluid{% if is_popup %} container-popup{% endif %}">
     {% if not is_popup %}
     <!-- Header -->
-    <div id="header" class="topbar" data-dropdown="dropdown">
-      <div class="topbar-inner">
+    <div id="header" class="navbar navbar-fixed-top" data-dropdown="dropdown">
+      <div class="navbar-inner">
       <div class="container-fluid">
         {% block branding %}{% endblock %}
         {% block nav-global %}{% endblock %}
         {% block search %}{% endblock %}
         {% if user.is_active and user.is_staff %}
-        <ul class="nav secondary-nav">
+        <ul class="nav pull-right">
+          {% comment %}
             <li id="menu-search-container">
               <a href="#" id="menu-search-toggle" class="top-icon" title="{% trans "Menu Search" %}" rel="popover" data-placement="below"><span class="ui-icon ui-icon-search"></span></a>
               <div id="menu_search">
@@ -116,11 +119,13 @@ $(function(){
                 <ul></ul>
               </div>
             </li>
+          {% endcomment %}
             {% atb_site_link %}
             <li class="dropdown">
-              <a class="dropdown-toggle" href="#">
-                <span class="ui-icon ui-icon-person"></span>
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                <i class="icon-user icon-white"></i>
                 {% filter force_escape %}{% firstof user.first_name user.username %}{% endfilter %}
+                <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
               {% block userlinks %}
@@ -135,6 +140,7 @@ $(function(){
                     {% else %}
                         <a href="{{ root_path }}password_change/">
                     {% endif %}
+                    <i class="icon-lock"></i> 
                     {% trans 'Change password' %}</a>
                   </li>
                   {% url admin:logout as logout_url %}
@@ -144,6 +150,7 @@ $(function(){
                     {% else %}
                         <a href="{{ root_path }}logout/">
                     {% endif %}
+                    <i class="icon-off"></i> 
                     {% trans 'Log out' %}</a>
                   </li>
               {% endblock %}
@@ -167,7 +174,7 @@ $(function(){
         {% block messages %}
           {% if messages %}
               {% for message in messages %}
-                <div class="alert-message {{ message.tags }}" data-alert="alert"><a class="close" href="#">x</a>{{ message }}</div>
+                <div class="alert alert-{{ message.tags }}" data-alert="alert"><a class="close" href="#">&times;</a>{{ message }}</div>
               {% endfor %}
           {% endif %}
         {% endblock %}
@@ -177,10 +184,10 @@ $(function(){
           {% block pretitle %}{% endblock %}
           {% block content_title %}
             {% if title %}
-            <div class="well page-top">
-              <h1>{{ title }}</h1>
-              {% block object-tools %}{% endblock %}
-            </div>
+              <h3 class="well page-top">
+                {% block object-tools %}{% endblock %}
+                {{ title }}
+              </h3>
             {% endif %}
           {% endblock %}
           {% block content %}
