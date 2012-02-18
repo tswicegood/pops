@@ -18,6 +18,7 @@ def atb_site_link():
         return '''
             <li><a href="%s"  class="top-icon" title="%s" rel="popover" data-placement="below"><i
                 class="icon-home icon-white"></i></a></li>
+                <li class="divider-vertical"></li>
             ''' % (settings.ADMINTOOLS_BOOTSTRAP_SITE_LINK, _('Open site'))
     else:
         return ''
