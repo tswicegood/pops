@@ -42,12 +42,12 @@ Set site name and domain in `django.contrib.sites` admin.
 Icons in menu items
 -------------------
 
-You can display icon from JQuery UI icon set on menu items. Add icon argument to MenuItem definition::
+Bootstrap 2.0 has icons support. To attach icon to navigation menu item, add icon argument to constructor::
 
  items.AppList(
         _('Users'),
         models=('django.contrib.auth.*',),
-        icon='ui-icon-person'
+        icon='icon-cog icon-white'
  )
 
 
