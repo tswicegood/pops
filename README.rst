@@ -14,7 +14,7 @@ Screenshots
 
 Some model admin
 
-.. image:: https://bitbucket.org/salvator/django-admintools-bootstrap/raw/c81dd1f0a4f9/snapshot3.png
+.. image:: https://bitbucket.org/salvator/django-admintools-bootstrap/raw/929405e45d92/snapshot3.png
 
 
 Usage
