@@ -648,3 +648,6 @@ fieldset h2{margin-bottom:0.5em;font-size:14pt;}
 .search-results{color:#999999 !important;}
 .clear{clear:both;}
 .collapsed_fieldset{background-color:#eeeeee;}.collapsed_fieldset .accordion-toggle{font-size:14pt;}
+#dashboard-panel ul li{list-style:none outside;}
+#navigation-menu li{list-style:none;}
+#navigation-menu a.dropdown-toggle .submenu{background-color:#9d261d;}

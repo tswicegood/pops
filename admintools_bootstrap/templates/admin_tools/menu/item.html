@@ -3,7 +3,7 @@
 {% if not item.is_empty %}
 <li class="{% if not item.enabled %} disabled{% endif %}{% if selected %} active{% endif %}{% if item.css_classes %} {{ item.css_classes|join:' ' }}{% endif %}{% if item.children %} dropdown{% endif %}">
 <a href="{% if item.url and item.enabled %}{{ item.url }}{% else %}#{% endif %}"{% if item.description %} title="{{ item.description }}"{% endif %}{% if item.accesskey %} accesskey="{{ item.accesskey }}"{% endif %}
-  {% if item.children and item.enabled %}class="dropdown-toggle" data-toggle="dropdown"{% endif %}>
+  {% if item.children and item.enabled %}class="dropdown-toggle{% if index == 'submenu' %} submenu{% endif %}" data-toggle="dropdown"{% endif %}>
     {% if item.icon %}<i class="{{ item.icon }}"></i> {% endif %}
   {{ item.title }}
     {% if item.children and item.enabled %}
@@ -11,7 +11,7 @@
     {% endif %}
   </a>
     {% if item.children and item.enabled %}
-    <ul class="{% if index == 'submenu' %}submenu open{% else %}dropdown-menu{% endif %}">
+    <ul class="{% if index == 'submenu' %}submenu{% else %}dropdown-menu{% endif %}">
         {% for child_item in item.children %}
           {% admin_tools_render_menu_item child_item 'submenu' %}
         {% endfor %}
