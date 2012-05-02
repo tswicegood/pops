@@ -2,39 +2,13 @@
 
 @redbor: 1px solid red;
 
-.page-top .pull-right {
-	margin-top: -33px;
-}
-
 h1, ul, li {
 	margin: 0;
 }
 
-#changelist-filter {
-	float: right;
-	max-width: 180px;
-
-	li {
-		list-style: none;
-		list-style-position: outside;
-		padding-left: 8px;
-	}
-
-	ul {
-		margin-left: -0.5em;
-	}
-
-	li.selected {
-		border-left: 4px solid gray;
-		padding-left: 4px;
-	}
+.filtered-content {
+	margin-right: @fluidGridColumnWidth * 2;
 }
-
-
-.content {
-	margin-right: 230px;
-}
-
 
 .changelist-actions {
 	.changelist-action {
@@ -140,7 +114,6 @@ h1, ul, li {
 	}
 }
 
-
 #container {
 	padding-top: 50px;
 }
@@ -152,10 +125,6 @@ td.action-checkbox {
 .container-popup {
 	min-width: 700px !important; /* replacing bootstrap's value */
 	padding-top: 10px !important;
-}
-
-#result_list {
-	width: 100% !important;
 }
 
 .login .hero-unit {
@@ -192,37 +161,15 @@ td.action-checkbox {
 	color: #fff !important;
 }
 
-.submenu {
-	li a {
-		padding-left: 25px !important;
-	}
-}
-
 .results {
-	th div {
-		float: left;
-	}
 	.sortoptions {
-		a { float: left; }
+		float: right;
 		margin-left: 1em;
+		a {
+			padding: 0px !important;
+		}
 	}
 }
-
-.secondary-nav {
-	li a.top-icon {
-		padding-right: 0;
-		margin-right: 0;
-	}
-}
-
-.nav, .secondary-nav {
-	.ui-icon {
-		float: left;
-		margin: 0 8px 0 0px;
-		width: 16px; height: 16px; background-image: url(icons/ui-icons_ffffff_256x240.png); 
-	}
-}
-
 
 #menu_search {
 	@menu_search_width: 190px;
@@ -308,11 +255,41 @@ td.action-checkbox {
 .action-wrapper .chzn-search { display: none; }
 
 fieldset {
-	&.collapsed * + * {
-		display: none;
-	}
 	h2 { 
-		border-bottom: 1px solid @grayLight; 
 		margin-bottom: 0.5em;
+		font-size: 14pt;
 	}
+}
+
+.search-results {
+	color: @grayLight !important;
+}
+
+.clear {
+	clear: both;
+}
+
+.collapsed_fieldset {
+	.accordion-toggle {
+		font-size: 14pt;
+	}
+	background-color: @grayLighter;
+}
+
+#dashboard-panel {
+	ul {
+		li {
+			list-style: none outside;
+		}
+	}
+}
+
+#navigation-menu {
+	li {
+		list-style: none;
+	}
+}
+
+.date-hierarchy {
+	height: 36px;
 }

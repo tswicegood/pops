@@ -27,25 +27,25 @@
 {% endif %}
 
 <div id="content-main">
-<form action="{{ app_path }}" method="post" id="login-form" class="">{% csrf_token %}
-  <div class="clearfix{% if form.username.errors %} error{% endif %}">
-    <label for="id_username" class="required">{% trans 'Username:' %}</label>
-    <div class="input">
+<form action="{{ app_path }}" method="post" id="login-form" class="form-horizontal">{% csrf_token %}
+  <div class="control-group{% if form.username.errors %} error{% endif %}">
+    <label for="id_username" class="required control-label">{% trans 'Username:' %}</label>
+    <div class="controls">
       {{ form.username }}
       {% if form.username.errors %}<span class="help-inline">{{ form.username.errors }}</span>{% endif %}
     </div>
   </div>
-  <div class="clearfix{% if form.password.errors %} error{% endif %}">
-    <label for="id_password" class="required">{% trans 'Password:' %}</label> 
-    <div class="input">
+  <div class="control-group{% if form.password.errors %} error{% endif %}">
+    <label for="id_password" class="required control-label">{% trans 'Password:' %}</label> 
+    <div class="controls">
       {{ form.password }}
       {% if form.password.errors %}<span class="help-inline">{{ form.password.errors }}</span>{% endif %}
     </div>
     <input type="hidden" name="this_is_the_login_form" value="1" />
     <input type="hidden" name="next" value="{{ next }}" />
   </div>
-  <div class="actions">
-    <input type="submit" value="{% trans 'Log in' %}" class="btn primary"/>
+  <div class="form-actions">
+    <input type="submit" value="{% trans 'Log in' %}" class="btn btn-primary"/>
   </div>
 </form>
 

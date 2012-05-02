@@ -1,19 +1,51 @@
 {% load admin_tools_menu_tags %}
 {% spaceless %}
 {% if not item.is_empty %}
-<li class="{% if not item.enabled %} disabled{% endif %}{% if selected %} active{% endif %}{% if item.css_classes %} {{ item.css_classes|join:' ' }}{% endif %}{% if item.children %} dropdown{% endif %}">
-<a href="{% if item.url and item.enabled %}{{ item.url }}{% else %}#{% endif %}"{% if item.description %} title="{{ item.description }}"{% endif %}{% if item.accesskey %} accesskey="{{ item.accesskey }}"{% endif %}
-  {% if item.children and item.enabled %}class="dropdown-toggle"{% endif %}>
-    {% if item.icon %}<span class="ui-icon {{ item.icon }}"></span>{% endif %}
-  {{ item.title }}
-  </a>
-    {% if item.children and item.enabled %}
-    <ul class="{% if index == 'submenu' %}submenu open{% else %}dropdown-menu{% endif %}">
+{% if index == 'submenu' %}
+  {# submenu - generating sub-section #}
+  <li class="{% if not item.enabled %}disabled{% endif %}{% if selected %} active{% endif %}{% if item.css_classes %} {{ item.css_classes|join:' ' }}{% endif %}{% if item.children %} nav-header{% endif %}">
+    {% if item.children %}
+      {{ item.title }}</li>
         {% for child_item in item.children %}
           {% admin_tools_render_menu_item child_item 'submenu' %}
         {% endfor %}
-    </ul>
+    {% else %}
+      <a href="{% if item.url and item.enabled %}{{ item.url }}{% else %}#{% endif %}"
+        {% if item.description %} title="{{ item.description }}"{% endif %}
+        {% if item.accesskey %} accesskey="{{ item.accesskey }}"{% endif %}>
+          {% if item.icon %}<i class="{{ item.icon }}"></i> {% endif %}
+          {{ item.title }}
+      </a>
+    </li>
     {% endif %}
-</li>
+{% else %}
+  {# top-level menu - generating dropdowns for submenus #}
+  <li class="{% spaceless %}{% if not item.enabled %} disabled{% endif %}
+    {% if selected %} active{% endif %}
+    {% if item.css_classes %} {{ item.css_classes|join:' ' }}{% endif %}
+    {% if item.children %} dropdown{% endif %}{% endspaceless %}">
+
+  <a href="{% if item.url and item.enabled %}{{ item.url }}{% else %}#{% endif %}"
+    {% if item.description %} title="{{ item.description }}"{% endif %}
+    {% if item.accesskey %} accesskey="{{ item.accesskey }}"{% endif %}
+    {% if item.children and item.enabled %}class="dropdown-toggle" data-toggle="dropdown"{% endif %}>
+      {% if item.icon %}<i class="{{ item.icon }}"></i> {% endif %}
+      {{ item.title }}
+      {% if item.children and item.enabled %}
+        <b class="caret"></b>
+      {% endif %}
+    </a>
+      {% if item.children and item.enabled %}
+      <ul class="dropdown-menu nav-list">
+          {% for child_item in item.children %}
+            {% if not forloop.first and child_item.children %}
+              <li class="divider"></li>
+            {% endif %}
+            {% admin_tools_render_menu_item child_item 'submenu' %}
+          {% endfor %}
+      </ul>
+      {% endif %}
+  </li>
+  {% endif %}
 {% endif %}
 {% endspaceless %}

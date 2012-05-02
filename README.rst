@@ -14,7 +14,7 @@ Screenshots
 
 Some model admin
 
-.. image:: https://bitbucket.org/salvator/django-admintools-bootstrap/raw/c81dd1f0a4f9/snapshot3.png
+.. image:: https://bitbucket.org/salvator/django-admintools-bootstrap/raw/929405e45d92/snapshot3.png
 
 
 Usage
@@ -42,14 +42,21 @@ Set site name and domain in `django.contrib.sites` admin.
 Icons in menu items
 -------------------
 
-You can display icon from JQuery UI icon set on menu items. Add icon argument to MenuItem definition::
+Bootstrap 2.0 has icons support. To attach icon to navigation menu item, add icon argument to constructor::
 
  items.AppList(
         _('Users'),
         models=('django.contrib.auth.*',),
-        icon='ui-icon-person'
+        icon='icon-cog icon-white'
  )
 
+
+Display fieldsets as tabs in changeform (0.0.2 version only)
+------------------------------------------------------------
+
+* user fieldsets attribute in your ModelAdmin class
+* every fieldset should have name (first item in fieldset definition list)
+* use change_form_template = 'admintools_bootstrap/tabbed_change_form.html' attribute in ModelAdmin
 
 Settings
 --------
