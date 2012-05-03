@@ -1,0 +1,40 @@
+<li>
+    <form class="form-search">
+        <input class="search-query" type="search" placeholder="{{ placeholder }}">
+    </form>
+
+    <script>
+    $(function() {
+        var $searchQuery = $('.search-query'),
+            $dropdown = $searchQuery.parents(".dropdown");
+        $dropdown.find(".dropdown-toggle").click(function() {
+            setTimeout(function() {
+                if ($dropdown.hasClass("open")) {
+                    $searchQuery.focus();
+                }
+            }, 50);
+        });
+        $searchQuery.keyup(function() {
+            var val = $(this).val();
+            $dropdown.find("a").not(".dropdown-toggle").each(function(i, el) {
+                var $el = $(el),
+                    $parent = $el.parent(),
+                    text = $el.text().trim().toLowerCase();
+                if (text.indexOf(val) == -1) {
+                    $parent.hide();
+                    var $prev = $parent.prevAll(":visible").first(),
+                        $next = $parent.nextAll(":visible").first();
+                    if ($prev.hasClass("nav-header") && ($next.length === 0 || $next.hasClass("divider"))) {
+                        $prev.hide();
+                        $next.hide();
+                    }
+                } else {
+                    $($parent.prevAll(".nav-header").first().not(":visible")).show()
+                    $($parent.nextAll(".divider").first().not(":visible")).show()
+                    $parent.show();
+                }
+            });
+        })
+    })
+    </script>
+</li>
