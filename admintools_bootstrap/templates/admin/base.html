@@ -141,34 +141,36 @@ $(function(){
     if (menu_search_visible) {
       $(this).twipsy('hide');
       $('#menu_search input').focus();
-    } 
+    }
   });
 
   $('fieldset label').addClass('control-label');
 
-  var isFixed = false,
-      $win = $(window),
-      subNav = $(".subnav"),
-      fieldSets = subNav.siblings("section.field_sets"),
-      navTop = subNav.offset().top - $("#header").height();
+  var subNav = $(".subnav");
+  if (subNav.length > 0) {
+    var isFixed = false,
+        $win = $(window),
+        fieldSets = subNav.siblings("section.field_sets"),
+        navTop = subNav.offset().top - $("#header").height();
 
-  var processScroll = function() {
-    if ($win.width() < 980) {
-      return
-    }
-    var scrollTop = $win.scrollTop();
-    if (!isFixed && scrollTop >= navTop) {
-      isFixed = true;
-      subNav.addClass("subnav-fixed");
-      fieldSets.css({"margin-top": subNav.outerHeight(true) + "px" });
+    var processScroll = function() {
+      if ($win.width() < 980) {
+        return
+      }
+      var scrollTop = $win.scrollTop();
+      if (!isFixed && scrollTop >= navTop) {
+        isFixed = true;
+        subNav.addClass("subnav-fixed");
+        fieldSets.css({"margin-top": subNav.outerHeight(true) + "px" });
 
-    } else if (isFixed && scrollTop < navTop) {
-      isFixed = false;
-      fieldSets.css({"margin-top": "0"});
-      subNav.removeClass("subnav-fixed");
+      } else if (isFixed && scrollTop < navTop) {
+        isFixed = false;
+        fieldSets.css({"margin-top": "0"});
+        subNav.removeClass("subnav-fixed");
+      }
     }
+    $win.on("scroll", processScroll);
   }
-  $win.on("scroll", processScroll);
 });
 </script>
 </head>
