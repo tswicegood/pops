@@ -17,6 +17,20 @@
 {% block extrahead %}
 {{ block.super }}
 {{ media.js }}
+<script>
+$(function() {
+  $("#changelist-filter .accordion-toggle").each(function(i, toggleLink) {
+    var $toggleLink = $(toggleLink);
+    $toggleLink.parent().each(function(i, parent) {
+      var $parent = $(parent);
+      if (!$parent.next().find("li").first().hasClass("active")) {
+        $toggleLink.click();
+      }
+    })
+  });
+});
+</script>
+{% comment %}TODO: Clean this up{% endcomment %}
 {% if action_form %}{% if actions_on_top or actions_on_bottom %}
 <script type="text/javascript">
 (function($) {
@@ -98,7 +112,11 @@
       {% if cl.has_filters %}
         <div id="changelist-filter" class="span2">
           <h4>{% trans 'Available Filters' %}</h4>
-          {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
+          <ul class="nav nav-tabs nav-stacked">
+            {% for spec in cl.filter_specs %}
+              <li>{% admin_list_filter cl spec %}</li>
+            {% endfor %}
+          </ul>
         </div>
       {% endif %}
     {% endblock %}
