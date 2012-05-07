@@ -74,17 +74,9 @@
   {% endif %}
 {% endblock %}
 {% block content %}
-  <div id="content-main">
-    {% block filters %}
-      {% if cl.has_filters %}
-        <div id="changelist-filter" class="well pull-right span2">
-          <h4>{% trans 'Filter' %}</h4>
-          {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
-        </div>
-      {% endif %}
-    {% endblock %}
+  <div id="content-main" class="row-fluid">
 
-    <div class="{% if cl.has_filters %}filtered-content{% else %}container-fluid{% endif %}" id="changelist">
+    <div class="span10" id="changelist">
       {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
 
       <form id="changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
@@ -100,5 +92,16 @@
       {% block pagination %}{% bootstrap_pagination cl %}{% endblock %}
       </form>
     </div>
+
+
+    {% block filters %}
+      {% if cl.has_filters %}
+        <div id="changelist-filter" class="span2">
+          <h4>{% trans 'Filter' %}</h4>
+          {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
+        </div>
+      {% endif %}
+    {% endblock %}
+
   </div>
 {% endblock %}
