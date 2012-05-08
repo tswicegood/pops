@@ -1,15 +1,42 @@
-{% load theming_tags admintools_bootstrap %}
+{% load theming_tags admin_tools_menu_tags admintools_bootstrap compress %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
 <title>{% block title %}{% endblock %}</title>
-{% block extrastyle %}{% endblock %}
+
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+
+{% block css %}
+<!--[if IE]><link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admintools_bootstrap/css/custom-theme/jquery.ui.1.8.16.ie.css" /><![endif]-->
+{% compress css %}
+<link rel="stylesheet" type="text/css" href="{{ COMPRESS_URL }}admintools_bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css">
+<link rel="stylesheet" type="text/css" href="{{ COMPRESS_URL }}admintools_bootstrap/chosen/chosen.css">
+
+<link rel="stylesheet" type="text/less" href="{{ COMPRESS_URL }}admintools_bootstrap/less/style.less">
+<link rel="stylesheet" type="text/css" href="{{ COMPRESS_URL }}admintools_bootstrap/bootstrap/css/bootstrap-responsive.css">
+<link rel="stylesheet" type="text/css" href="{{ COMPRESS_URL }}admintools_bootstrap/css/extras.css?{% now "c" %}">
+
+{% endcompress %}
+
 <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% load adminmedia %}{% admin_media_prefix %}css/ie.css{% endblock %}" /><![endif]-->
 {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% admin_media_prefix %}css/rtl.css{% endblock %}" />{% endif %}
 {#{% render_theming_css %}#}
-<script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% admin_media_prefix %}{% endfilter %}";</script>
+{% endblock %}
+{% block extrastyle %}{% endblock %}
+
+{% block javascript %}
+<script>
+  window.__admin_media_prefix__ = "{% filter escapejs %}{% admin_media_prefix %}{% endfilter %}";
+</script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}admintools_bootstrap/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}admintools_bootstrap/chosen/chosen.jquery.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}admintools_bootstrap/js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}admintools_bootstrap/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}admintools_bootstrap/js/init-ui.js"></script>
+{% endblock %}
+
 {% block extrahead %}{% endblock %}
-{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
 
 <script type="text/javascript">
 $(function(){
@@ -131,8 +158,17 @@ $(function(){
     <div id="header" class="navbar navbar-fixed-top" data-dropdown="dropdown">
       <div class="navbar-inner">
       <div class="container-fluid">
+
         {% block branding %}{% endblock %}
-        {% block nav-global %}{% endblock %}
+
+        {% block nav-global %}
+        {% if user.is_active and user.is_staff %}
+          {% if not is_popup %}
+            {% admin_tools_render_menu %}
+          {% endif %}
+        {% endif %}
+        {% endblock %}
+
         {% block search %}{% endblock %}
         {% if user.is_active and user.is_staff %}
         <ul class="nav pull-right">
