@@ -161,7 +161,9 @@ $(function(){
       <div class="container-fluid">
 
         {% block branding %}
-          <a class="brand" href="{% url 'admin:index' %}">{% atb_site_name %} {% trans "admin" %}</a>
+          <a class="brand" href="{% url 'admin:index' %}">
+            {% block branding_text %}{% atb_site_name %} {% trans "admin" %}{% endblock %}
+          </a>
         {% endblock %}
 
         {% block nav-global %}
