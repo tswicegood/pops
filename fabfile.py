@@ -9,6 +9,13 @@ DESTINATION_PATH = join(dirname(__file__), "admintools_bootstrap", "static",
 
 
 @task
+def update_jquery_ui():
+    local("cp "
+        "vendor/jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css "
+        "admintools_bootstrap/static/admin_tools/css/jquery-ui.css")
+
+
+@task
 def update_bootstrap():
     local("cd vendor/bootstrap && make")
     local("cp %s/js/bootstrap.min.js %s/js/" % (
