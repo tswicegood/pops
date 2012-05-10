@@ -121,7 +121,8 @@ $(function(){
     }
   });
 
-  $('fieldset label').addClass('control-label');
+  // TODO: Figure out a better way to do this, this is fuggy.
+  $('fieldset label').not("[data-skip-auto-add='true']").addClass('control-label');
 
   var subNav = $(".subnav");
   if (subNav.length > 0) {
