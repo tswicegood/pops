@@ -48,37 +48,47 @@ TODO: figure out a better place to put these than in that top well
   {% endif %}
 {% endblock %}
 
-{% block content %}<div id="content-main">
-<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form" class="form-horizontal">{% csrf_token %}{% block form_top %}{% endblock %}
-<div>
-{% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
-{% submit_row %}
+{% block content %}
+<div id="content-main">
+  <form {% if has_file_field %}enctype="multipart/form-data"{% endif %}
+      action="{{ form_url }}" method="post"
+      id="{{ opts.module_name }}_form" class="form-horizontal">
 
-{% block field_sets %}
-<section class="field_sets">
-{% for fieldset in adminform %}
-  {% include "admin/includes/fieldset.html" %}
-{% endfor %}
-</section>
-{% endblock %}
+    {% csrf_token %}
 
-{% block after_field_sets %}{% endblock %}
+    {% block form_top %}{% endblock %}
 
-{% block inline_field_sets %}
-{% for inline_admin_formset in inline_admin_formsets %}
-    {% include inline_admin_formset.opts.template %}
-{% endfor %}
-{% endblock %}
+    <div>
+      {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
 
-{% block after_related_objects %}{% endblock %}
+      {% submit_row %}
 
-{% if adminform and add %}
-   <script type="text/javascript">document.getElementById("{{ adminform.first_field.id_for_label }}").focus();</script>
-{% endif %}
+      {% block field_sets %}
+        <section class="field_sets">
+          {% for fieldset in adminform %}
+            {% include "admin/includes/fieldset.html" %}
+          {% endfor %}
+        </section>
+      {% endblock %}
 
-{# JavaScript for prepopulated fields #}
-{% prepopulated_fields_js %}
+      {% block after_field_sets %}{% endblock %}
 
+      {% block inline_field_sets %}
+        {% for inline_admin_formset in inline_admin_formsets %}
+            {% include inline_admin_formset.opts.template %}
+        {% endfor %}
+      {% endblock %}
+
+      {% block after_related_objects %}{% endblock %}
+
+      {% if adminform and add %}
+         <script type="text/javascript">document.getElementById("{{ adminform.first_field.id_for_label }}").focus();</script>
+      {% endif %}
+
+      {# JavaScript for prepopulated fields #}
+      {% prepopulated_fields_js %}
+
+    </div>
+  </form>
 </div>
-</form></div>
 {% endblock %}
