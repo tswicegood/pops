@@ -149,6 +149,13 @@ $(function(){
     }
     $win.on("scroll", processScroll);
   }
+
+  $("#submitChangeFormSaves a").click(function() {
+    var $this = $(this),
+        input = $("<input>");
+    input.attr("type", "hidden").attr("name", $this.data("name"));
+    $this.parents("form").append(input).submit();
+  });
 });
 </script>
 </head>
