@@ -18,10 +18,21 @@ CHOSEN = {
     "dest": join(STATIC_PATH, "chosen"),
 }
 
+JQUERY = {
+    "source": join(VENDOR_PATH, "jquery", "dist"),
+    "dest": join(STATIC_PATH, "jquery"),
+}
+
 JQUERY_UI = {
     "source": join(VENDOR_PATH, "jquery-ui-bootstrap"),
     "dest": join(STATIC_PATH, "jquery-ui-bootstrap"),
 }
+
+
+@task
+def update_jquery():
+    local("cd vendor/jquery && make")
+    local("cp %(source)s/*.js %(dest)s" % JQUERY)
 
 
 @task
