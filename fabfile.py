@@ -18,12 +18,18 @@ CHOSEN = {
     "dest": join(STATIC_PATH, "chosen"),
 }
 
+JQUERY_UI = {
+    "source": join(VENDOR_PATH, "jquery-ui-bootstrap"),
+    "dest": join(STATIC_PATH, "jquery-ui-bootstrap"),
+}
+
 
 @task
 def update_jquery_ui():
-    local("cp "
-        "vendor/jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.8.16.custom.css "
-        "admintools_bootstrap/static/admin_tools/css/jquery-ui.css")
+    local("cp -R %s/css/custom-theme/* %s/css" % (
+            JQUERY_UI["source"], JQUERY_UI["dest"]))
+    local("cp %s/js/jquery-ui-*.js %s/js" % (
+            JQUERY_UI["source"], JQUERY_UI["dest"]))
 
 
 @task
