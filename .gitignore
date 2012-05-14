@@ -1,0 +1,7 @@
+dist/pops-*.tar.gz
+MANIFEST
+*.pyc
+*.pyo
+*.egg-info
+build
+.directory
