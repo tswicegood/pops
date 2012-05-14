@@ -1,8 +1,8 @@
 from appconf import AppConf
 
 
-class AdminToolsBootstrapConf(AppConf):
+class PopsConf(AppConf):
     SITE_LINK = '/'
 
     class Meta:
-        prefix = 'ADMINTOOLS_BOOTSTRAP'
+        prefix = 'POPS'

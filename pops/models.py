@@ -23,12 +23,14 @@ from admin_tools.menu import items
 # addming icon argument to base MenuItem class
 items.MenuItem.icon = None
 
-import admintools_bootstrap.settings
+import pops.settings
 
 # patching django's FieldSet
 from django.contrib.admin import helpers
 from django import forms
 
+
+# TODO: See if there's another/better way to do this
 class Fieldset(helpers.Fieldset):
     def _media(self):
         if 'collapse' in self.classes:
