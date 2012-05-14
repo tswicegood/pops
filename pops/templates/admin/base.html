@@ -30,11 +30,11 @@
   window.__admin_media_prefix__ = "{% filter escapejs %}{% admin_media_prefix %}{% endfilter %}";
 </script>
 
-<script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}jquery-ui-bootstrap/js/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}chosen/chosen.jquery.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}admintools_bootstrap/js/init-ui.js"></script>
+<script src="{{ STATIC_URL }}jquery/jquery.min.js"></script>
+<script src="{{ STATIC_URL }}jquery-ui-bootstrap/js/jquery-ui-1.8.16.custom.min.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+<script src="{{ STATIC_URL }}chosen/chosen.jquery.js"></script>
+<script src="{{ STATIC_URL }}admintools_bootstrap/js/init-ui.js"></script>
 {% endblock %}
 
 {% block extrahead %}{% endblock %}
