@@ -13,6 +13,11 @@ BOOTSTRAP = {
     "dest": join(STATIC_PATH, "bootstrap"),
 }
 
+CHOSEN = {
+    "source": join(VENDOR_PATH, "chosen", "chosen"),
+    "dest": join(STATIC_PATH, "chosen"),
+}
+
 
 @task
 def update_jquery_ui():
@@ -31,3 +36,8 @@ def update_bootstrap():
             BOOTSTRAP["compiled"], BOOTSTRAP["dest"]))
     local("cp %s/less/*.* %s/less" % (BOOTSTRAP["source"], BOOTSTRAP["dest"]))
     local("cp %s/LICENSE %s" % (BOOTSTRAP["source"], BOOTSTRAP["dest"]))
+
+
+@task
+def update_chosen():
+    local("cp %s/*.* %s" % (CHOSEN["source"], CHOSEN["dest"]))
