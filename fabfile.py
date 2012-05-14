@@ -2,10 +2,16 @@ from fabric.api import local, task
 from os.path import join, dirname
 
 
-BOOTSTRAP_PATH = join(dirname(__file__), "vendor", "bootstrap")
-COMPILED_BOOTSTRAP_PATH = join(BOOTSTRAP_PATH, "docs", "assets")
-DESTINATION_PATH = join(dirname(__file__), "admintools_bootstrap", "static",
-        "bootstrap")
+BASE_DIR = dirname(__file__)
+VENDOR_PATH = join(BASE_DIR, "vendor")
+STATIC_PATH = join(BASE_DIR, "pops", "static")
+BOOTSTRAP_PATH = join(VENDOR_PATH, "bootstrap")
+
+BOOTSTRAP = {
+    "source": join(VENDOR_PATH, "bootstrap"),
+    "compiled": join(VENDOR_PATH, "bootstrap", "docs", "assets"),
+    "dest": join(STATIC_PATH, "bootstrap"),
+}
 
 
 @task
@@ -19,11 +25,9 @@ def update_jquery_ui():
 def update_bootstrap():
     local("cd vendor/bootstrap && make")
     local("cp %s/js/bootstrap.min.js %s/js/" % (
-            COMPILED_BOOTSTRAP_PATH, DESTINATION_PATH))
-    local("cp %s/img/*.* %s/img" % (BOOTSTRAP_PATH, DESTINATION_PATH))
+            BOOTSTRAP["compiled"], BOOTSTRAP["dest"]))
+    local("cp %s/img/*.* %s/img" % (BOOTSTRAP["source"], BOOTSTRAP["dest"]))
     local("cp %s/css/bootstrap*.css %s/css" % (
-            COMPILED_BOOTSTRAP_PATH, DESTINATION_PATH))
-    local("cp %s/less/*.* %s/less" % (BOOTSTRAP_PATH, DESTINATION_PATH))
-    # for path in ["img", "js", "less", "LICENSE"]:
-    #     full_path = join(BOOTSTRAP_PATH, path)
-    #     local("cp -R %s %s" % (full_path, DESTINATION_PATH))
+            BOOTSTRAP["compiled"], BOOTSTRAP["dest"]))
+    local("cp %s/less/*.* %s/less" % (BOOTSTRAP["source"], BOOTSTRAP["dest"]))
+    local("cp %s/LICENSE %s" % (BOOTSTRAP["source"], BOOTSTRAP["dest"]))
