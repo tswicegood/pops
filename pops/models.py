@@ -4,6 +4,7 @@
 from django.contrib.admin import widgets
 from django import forms
 
+
 class FilteredSelectMultiple(forms.SelectMultiple):
     """
         removing 2 select fields widget
@@ -20,5 +21,5 @@ widgets.AdminDateWidget.media = None
 
 from admin_tools.menu import items
 
-# addming icon argument to base MenuItem class
+# adding icon argument to base MenuItem class
 items.MenuItem.icon = None
