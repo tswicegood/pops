@@ -28,6 +28,12 @@ JQUERY_UI = {
     "dest": join(STATIC_PATH, "jquery-ui-bootstrap"),
 }
 
+LESS = {
+    "source": join(VENDOR_PATH, "less.js", "dist",
+            "less-1.3.0.min.js"),
+    "dest": join(STATIC_PATH, "less.js"),
+}
+
 
 @task
 def update_jquery():
@@ -58,3 +64,8 @@ def update_bootstrap():
 @task
 def update_chosen():
     local("cp %s/*.* %s" % (CHOSEN["source"], CHOSEN["dest"]))
+
+
+@task
+def update_less():
+    local("cp %(source)s %(dest)s" % LESS)
