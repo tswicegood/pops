@@ -1,9 +1,10 @@
 from django import template
 from django.utils.translation import ugettext as _
-from django.conf import settings
 from django.contrib.sites.models import Site
 
 from BeautifulSoup import BeautifulSoup
+
+from ..conf import settings
 
 
 register = template.Library()
