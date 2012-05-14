@@ -1,0 +1,125 @@
+{% extends "admin/base_site.html" %}
+{% load adminmedia admin_list i18n pops bootstrap %}
+{% load url from future %}
+{% block extrastyle %}
+  {{ block.super }}
+{#  <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/changelists.css" />#}
+  {% if cl.formset %}
+{#    <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />#}
+  {% endif %}
+  {% if cl.formset or action_form %}
+    {% url 'admin:jsi18n' as jsi18nurl %}
+    <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/' }}"></script>
+  {% endif %}
+  {{ media.css }}
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+<script>
+$(function() {
+  $("#changelist-filter .accordion-toggle").each(function(i, toggleLink) {
+    var $toggleLink = $(toggleLink);
+    $toggleLink.parent().each(function(i, parent) {
+      var $parent = $(parent);
+      if (!$parent.next().find("li").first().hasClass("active")) {
+        $toggleLink.click();
+      }
+    })
+  });
+});
+</script>
+{% comment %}TODO: Clean this up{% endcomment %}
+{% if action_form %}{% if actions_on_top or actions_on_bottom %}
+<script type="text/javascript">
+(function($) {
+    $(document).ready(function($) {
+        $("tr input.action-select").actions({
+          actionContainer: 'div.actions',
+          counterContainer: '.selection_info, .selection-info span.action-counter',
+          allContainer: '.selection-info, .selection-info span.all',
+          acrossQuestions: 'span.question',
+          acrossClears: 'span.clear',
+          acrossInput: "div.changelist-actions input.select-across"
+        });
+    });
+})(django.jQuery);
+
+</script>
+{% endif %}{% endif %}
+
+{% endblock %}
+
+{% block bodyclass %}change-list{% endblock %}
+
+{% block breadcrumbs %}
+  {% if not is_popup %}
+    ../../|{% trans "Home" %}
+    ../|{{ app_label|capfirst }}
+    {{ cl.opts.verbose_name_plural|capfirst }}
+  {% endif %}
+{% endblock %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block object-tools %}
+  {% if has_add_permission %}
+    <div class="pull-right object-tools">
+      {% block object-tools-items %}
+        <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="btn btn-primary">
+          <i class="icon-plus icon-white"></i>
+          {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
+        </a>
+      {% endblock %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block search %}{% if cl %}{% search_form cl %}{% endif %}{% endblock %}
+
+{% block messages %}
+  {{ block.super }}
+  {% if cl.formset.errors %}
+    <div class="alert alert-error{% if cl.formset.non_form_errors %} alert-block{% endif %}" data-alert="alert"><a class="close" href="#">x</a>
+      {% blocktrans count cl.formset.errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+      {{ cl.formset.non_form_errors }}
+    </div>
+  {% endif %}
+{% endblock %}
+{% block content %}
+  <div id="content-main" class="row-fluid">
+
+    <div class="span10" id="changelist">
+      {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
+
+      <form id="changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
+      {% if cl.formset %}
+        <div>{{ cl.formset.management_form }}</div>
+      {% endif %}
+
+      {% block result_list %}
+          {% if action_form and actions_on_top and cl.full_result_count %}{% admin_actions %}{% endif %}
+          {% result_list cl %}
+          {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
+      {% endblock %}
+      {% block pagination %}{% bootstrap_pagination cl %}{% endblock %}
+      </form>
+    </div>
+
+
+    {% block filters %}
+      {% if cl.has_filters %}
+        <div id="changelist-filter" class="span2">
+          <h4>{% trans 'Available Filters' %}</h4>
+          <ul class="nav nav-tabs nav-stacked">
+            {% for spec in cl.filter_specs %}
+              <li>{% admin_list_filter cl spec %}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endblock %}
+
+  </div>
+{% endblock %}

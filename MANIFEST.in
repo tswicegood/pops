@@ -1,4 +1,4 @@
-include setup.py README.rst MANIFEST.in LICENSE
+include setup.py README.rst MANIFEST.in LICENSE package.json
 recursive-include admintools_bootstrap/templates *
 recursive-include admintools_bootstrap/static *
 global-exclude *~
