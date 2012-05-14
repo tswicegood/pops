@@ -10,7 +10,7 @@ register = template.Library()
 
 
 @register.simple_tag
-def atb_site_link():
+def site_link():
     # TODO: Convert this to a template-based tag
     if settings.POPS_SITE_LINK:
         return '''
@@ -27,7 +27,7 @@ def atb_site_link():
 
 
 @register.simple_tag
-def atb_site_name():
+def site_name():
     if 'django.contrib.sites' in settings.INSTALLED_APPS:
         return Site.objects.get_current().name
     else:

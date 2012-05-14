@@ -1,4 +1,4 @@
-{% load theming_tags admin_tools_menu_tags admintools_bootstrap compress %}
+{% load theming_tags admin_tools_menu_tags pops bootstrap compress %}
 {% load url from future %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
@@ -173,7 +173,7 @@ $(function(){
 
         {% block branding %}
           <a class="brand" href="{% url 'admin:index' %}">
-            {% block branding_text %}{% atb_site_name %} {% trans "admin" %}{% endblock %}
+            {% block branding_text %}{% site_name %} {% trans "admin" %}{% endblock %}
           </a>
         {% endblock %}
 
@@ -197,7 +197,7 @@ $(function(){
               </div>
             </li>
           {% endcomment %}
-            {% atb_site_link %}
+            {% site_link %}
             <li class="dropdown">
               <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                 <i class="icon-user icon-white"></i>
