@@ -180,7 +180,16 @@ td.action-checkbox {
     }
 }
 
-#result_list thead th { white-space: nowrap; }
+#result_list {
+    thead {
+        th.sorted.descending a i { .rotate(90deg); }
+        th.sorted.ascending a i { .rotate(-90deg); }
+        th {
+            i { font-size: 75%; font-style: normal; display: inline-block; }
+            white-space: nowrap;
+        }
+    }
+}
 
 #menu_search {
     @menu_search_width: 190px;

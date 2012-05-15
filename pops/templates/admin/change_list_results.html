@@ -27,7 +27,10 @@
 
               <div class="text">
                 {% if header.sortable %}
-                  <a href="{% if header.url_primary %}{{ header.url_primary }}{% else %}{{ header.url }}{% endif %}">{{ header.text|capfirst }}</a>
+                  <a href="{% if header.url_primary %}{{ header.url_primary }}{% else %}{{ header.url }}{% endif %}">
+                    {{ header.text|capfirst }}
+                    {% if header.class_attrib %}<i>&#x27a4;</i>{% endif %}
+                  </a>
                 {% else %}
                   <span>{{ header.text|capfirst }}</span>
                 {% endif %}
