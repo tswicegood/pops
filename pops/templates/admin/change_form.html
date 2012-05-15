@@ -23,19 +23,6 @@
 {% endif %}
 {% endblock %}
 
-{% comment %}
-TODO: figure out a better place to put these than in that top well
-{% block object-tools %}
-{% if change %}{% if not is_popup %}
-  <div class="pull-right">
-    {% block object-tools-items %}
-    <a href="history/" class="btn btn-info">{% trans "History" %}</a>
-    {% if has_absolute_url %}<a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="btn primary">{% trans "View on site" %}</a>{% endif%}
-    {% endblock %}
-  </div>
-{% endif %}{% endif %}
-{% endblock %}
-{% endcomment %}
 {% block content_title %}{% endblock %}
 
 {% block messages %}
