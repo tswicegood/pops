@@ -10,6 +10,15 @@ h1, ul, li {
     margin-right: @fluidGridColumnWidth * 2;
 }
 
+#reversion-change-history {
+  tbody {
+    .date, .name { white-space: nowrap; }
+
+    .name a i { opacity: 0; .transition(100ms all ease-out); }
+    tr:hover .name a i { opacity: 1; .transition(200ms all ease-in); }
+  }
+}
+
 .changelist-actions {
     .changelist-action {
         margin-top: 0.5em;
