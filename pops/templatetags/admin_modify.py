@@ -17,7 +17,6 @@ prepopulated_fields_js = register.inclusion_tag(
 cell_count = register.filter(cell_count)
 
 
-
 @register.inclusion_tag("admin/submit_line.html", takes_context=True)
 def submit_row(context):
     from django.contrib.admin.templatetags.admin_modify import (
@@ -25,5 +24,3 @@ def submit_row(context):
     new_context = copy(context)
     new_context.update(django_submit_row(context))
     return new_context
-
-
