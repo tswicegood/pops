@@ -20,7 +20,7 @@ You can install the development version of this package using `pip`_:
 
 ::
 
-    $ git://github.com/tswicegood/pops.git
+    $ git clone git://github.com/tswicegood/pops.git
     $ cd pops && pip install .
 
 Next, you must add ``pops`` to the list of ``INSTALLED_APPS`` in your Django
