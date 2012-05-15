@@ -60,3 +60,13 @@ in ``vendor/`` for full licensing information.
 * https://bitbucket.org/izi/django-admin-tools/
 * http://www.crummy.com/software/BeautifulSoup/
 * https://github.com/jezdez/django-appconf
+
+What's in a name?
+-----------------
+"Pops" is one of Louis Armstrong's `nicknames`_.  This project is being done
+for integration with the `Armstrong Project`_, which is named after Mr.
+Armstrong.  Pops is completely independent of the project, however, so we
+decided to give it a different, albeit still related, name.
+
+.. _nicknames: http://en.wikipedia.org/wiki/Louis_Armstrong#Nicknames
+.. _Armstrong Project: http://armstrongcms.org/
