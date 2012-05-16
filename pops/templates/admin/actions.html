@@ -1,22 +1,24 @@
 {% load i18n %}
 
 <div id="changelist-actions" class="btn-group">
-  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-    {% trans "Actions" %}
-    <span class="caret"></span>
-  </a>
+  {% if action_form %}
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+      {% trans "Actions" %}
+      <span class="caret"></span>
+    </a>
 
-  <ul class="dropdown-menu">
-    {% for action in action_form.fields.action.choices %}
-      {% if action.0 %}
-        <li>
-          <a href="javascript:void(0);" data-action="{{ action.0 }}">
-            {{ action.1 }}
-          </a>
-        </li>
-      {% endif %}
-    {% endfor %}
-  </ul>
+    <ul class="dropdown-menu">
+      {% for action in action_form.fields.action.choices %}
+        {% if action.0 %}
+          <li>
+            <a href="javascript:void(0);" data-action="{{ action.0 }}">
+              {{ action.1 }}
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
 </div>
 
 <script>
