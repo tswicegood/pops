@@ -110,73 +110,75 @@ $(function(){
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
 
 <!-- Container -->
-<div id="container" class="container-fluid{% if is_popup %} container-popup{% endif %}">
+<div id="container" class="{% block container-class %}container-fluid{% endblock %}{% if is_popup %} container-popup{% endif %}">
     {% if not is_popup %}
-    <!-- Header -->
-    <div id="header" class="navbar navbar-fixed-top" data-dropdown="dropdown">
-      <div class="navbar-inner">
-      <div class="container-fluid">
 
-        {% block branding %}
-          <a class="brand" href="{% url 'admin:index' %}">
-            {% block branding_text %}{% site_name %} {% trans "admin" %}{% endblock %}
-          </a>
-        {% endblock %}
+    {% block header %}
+      <div id="header" class="navbar navbar-fixed-top" data-dropdown="dropdown">
+        <div class="navbar-inner">
+        <div class="container-fluid">
 
-        {% block nav-global %}
-        {% if user.is_active and user.is_staff %}
-          {% if not is_popup %}
-            {% admin_tools_render_menu %}
+          {% block branding %}
+            <a class="brand" href="{% url 'admin:index' %}">
+              {% block branding_text %}{% site_name %} {% trans "admin" %}{% endblock %}
+            </a>
+          {% endblock %}
+
+          {% block nav-global %}
+          {% if user.is_active and user.is_staff %}
+            {% if not is_popup %}
+              {% admin_tools_render_menu %}
+            {% endif %}
           {% endif %}
-        {% endif %}
-        {% endblock %}
+          {% endblock %}
 
-        {% block nav-search %}{% endblock %}
-        {% if user.is_active and user.is_staff %}
-        <ul class="nav pull-right">
+          {% block nav-search %}{% endblock %}
+          {% if user.is_active and user.is_staff %}
+          <ul class="nav pull-right">
 
-            {% site_link %}
-            <li class="dropdown">
-              <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                <i class="icon-user icon-white"></i>
-                {% filter force_escape %}{% firstof user.first_name user.username %}{% endfilter %}
-                <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-              {% block userlinks %}
-                  {% url 'django-admindocs-docroot' as docsroot %}
-                  {% if docsroot %}
-                      <li><a href="{{ docsroot }}">{% trans 'Documentation' %}</a></li>
-                  {% endif %}
-                  {% url 'admin:password_change' as password_change_url %}
-                  <li>
-                    {% if password_change_url %}
-                        <a href="{{ password_change_url }}">
-                    {% else %}
-                        <a href="{{ root_path }}password_change/">
+              {% site_link %}
+              <li class="dropdown">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                  <i class="icon-user icon-white"></i>
+                  {% filter force_escape %}{% firstof user.first_name user.username %}{% endfilter %}
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                {% block userlinks %}
+                    {% url 'django-admindocs-docroot' as docsroot %}
+                    {% if docsroot %}
+                        <li><a href="{{ docsroot }}">{% trans 'Documentation' %}</a></li>
                     {% endif %}
-                    <i class="icon-lock"></i>
-                    {% trans 'Change password' %}</a>
-                  </li>
-                  {% url 'admin:logout' as logout_url %}
-                  <li>
-                    {% if logout_url %}
-                        <a href="{{ logout_url }}">
-                    {% else %}
-                        <a href="{{ root_path }}logout/">
-                    {% endif %}
-                    <i class="icon-off"></i>
-                    {% trans 'Log out' %}</a>
-                  </li>
-              {% endblock %}
-              </ul>
-            </li>
-        </ul>
-        {% endif %}
+                    {% url 'admin:password_change' as password_change_url %}
+                    <li>
+                      {% if password_change_url %}
+                          <a href="{{ password_change_url }}">
+                      {% else %}
+                          <a href="{{ root_path }}password_change/">
+                      {% endif %}
+                      <i class="icon-lock"></i>
+                      {% trans 'Change password' %}</a>
+                    </li>
+                    {% url 'admin:logout' as logout_url %}
+                    <li>
+                      {% if logout_url %}
+                          <a href="{{ logout_url }}">
+                      {% else %}
+                          <a href="{{ root_path }}logout/">
+                      {% endif %}
+                      <i class="icon-off"></i>
+                      {% trans 'Log out' %}</a>
+                    </li>
+                {% endblock %}
+                </ul>
+              </li>
+          </ul>
+          {% endif %}
+        </div>
+        </div>
       </div>
-      </div>
-    </div>
-    <!-- END Header -->
+    {% endblock header %}
+
       {% breadcrumbs %}
       {% block breadcrumbs %}
         /|{% trans "Home" %}
