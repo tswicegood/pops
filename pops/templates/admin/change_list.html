@@ -98,7 +98,7 @@ $(function() {
 {% block content %}
   <div id="content-main" class="row-fluid">
 
-    <div class="span10" id="changelist">
+    <div class="span1{% if cl.has_filters %}0{% else %}2{% endif %}" id="changelist">
       {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
 
       <form id="changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
