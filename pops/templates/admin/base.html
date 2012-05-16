@@ -197,14 +197,8 @@ $(function(){
       <!-- Content -->
       <div id="content" class="{% block coltype %}container-fluid{% endblock %}">
           {% block pretitle %}{% endblock %}
-          {% block content_title %}
-            {% if title %}
-              <h3 class="well page-top">
-                {% block object-tools %}{% endblock %}
-                {{ title }}
-              </h3>
-            {% endif %}
-          {% endblock %}
+          {% block content_title %}{% endblock %}
+          {% block object-tools %}{% endblock %}
           {% block content %}
           {{ content }}
           {% endblock %}

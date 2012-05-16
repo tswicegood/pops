@@ -1,5 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load adminmedia admin_list i18n pops bootstrap %}
+{% load pops_forms %}
 {% load url from future %}
 {% block extrastyle %}
   {{ block.super }}
@@ -64,14 +65,21 @@ $(function() {
 {% block coltype %}flex{% endblock %}
 
 {% block object-tools %}
-  {% if has_add_permission %}
-    <div class="pull-right object-tools">
-      {% block object-tools-items %}
-        <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="btn btn-primary">
-          <i class="icon-plus icon-white"></i>
-          {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
-        </a>
-      {% endblock %}
+  {% if action_form or has_add_permission %}
+    <div class="subnav">
+      {% if has_add_permission %}
+        <div class="pull-right object-tools">
+          {% block object-tools-items %}
+            <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="btn btn-primary">
+              <i class="icon-plus icon-white"></i>
+              {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
+            </a>
+          {% endblock %}
+        </div>
+      {% endif %}
+
+      {% if action_form and cl.full_result_count %}{% admin_actions %}{% endif %}
+
     </div>
   {% endif %}
 {% endblock %}
@@ -99,11 +107,18 @@ $(function() {
       {% endif %}
 
       {% block result_list %}
-          {% if action_form and actions_on_top and cl.full_result_count %}{% admin_actions %}{% endif %}
           {% result_list cl %}
-          {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
       {% endblock %}
       {% block pagination %}{% bootstrap_pagination cl %}{% endblock %}
+
+      {% comment %}
+        Make sure that all of the actions form fields are here to be submitted
+      {% endcomment %}
+      {% if action_form %}
+        {% for field in action_form %}
+          {{ field|as_hidden_field }}
+        {% endfor %}
+      {% endif %}
       </form>
     </div>
 
