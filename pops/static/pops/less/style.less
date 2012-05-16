@@ -316,7 +316,8 @@ fieldset {
 
 /* Subnav */
 .subnav {
-  height: 28px;
+  /* height is line-height + border (top & bottom) + padding (top & bottom) */
+  height: @baseLineHeight + 2px + 8px;
   background-color: @grayLighter;
   overflow: visible;
   padding: 4px 8px;
