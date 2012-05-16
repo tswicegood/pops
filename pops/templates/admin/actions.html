@@ -22,7 +22,7 @@
 <script>
 var _actions_icnt="{{ cl.result_list|length|default:"0" }}";
 $(function() {
-  $("#changelist-actions a").click(function(e) {
+  $("#changelist-actions a").not("[data-toggle='dropdown']").click(function(e) {
     e.preventDefault();
     $("#id_action").val($(this).data("action"));
     $("#changelist-form").submit();
