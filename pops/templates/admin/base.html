@@ -102,6 +102,8 @@ $(function(){
     input.attr("type", "hidden").attr("name", $this.data("name"));
     $this.parents("form").append(input).submit();
   });
+
+  $(".alert").alert();
 });
 </script>
 </head>
@@ -191,7 +193,10 @@ $(function(){
         {% block messages %}
           {% if messages %}
               {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}" data-alert="alert"><a class="close" href="#">&times;</a>{{ message }}</div>
+                <div class="alert alert-{{ message.tags }}" data-alert="alert">
+                  <button class="close" data-dismiss="alert">&times;</button>
+                  {{ message }}
+                </div>
               {% endfor %}
           {% endif %}
         {% endblock %}
