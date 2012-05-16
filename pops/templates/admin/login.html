@@ -1,15 +1,16 @@
 {% extends "admin/base_site.html" %}
 {% load i18n %}
 
-{% block bodyclass %}login{% endblock %}
+{% block bodyclass %}login row{% endblock %}
 
-{% block nav-global %}{% endblock %}
+{% block header %}{% endblock %}
 
 {% block content_title %}<h1>{% trans "Enter username and password" %}</h1>{% endblock %}
 
 {% block breadcrumbs %}{% endblock %}
 
-{% block coltype %}hero-unit{% endblock %}
+{% block container-class %}container{% endblock %}
+{% block coltype %}span8 offset2{% endblock %}
 
 {% block content %}
 {% if form.errors and not form.non_field_errors and not form.this_is_the_login_form.errors %}
@@ -36,7 +37,7 @@
     </div>
   </div>
   <div class="control-group{% if form.password.errors %} error{% endif %}">
-    <label for="id_password" class="required control-label">{% trans 'Password:' %}</label> 
+    <label for="id_password" class="required control-label">{% trans 'Password:' %}</label>
     <div class="controls">
       {{ form.password }}
       {% if form.password.errors %}<span class="help-inline">{{ form.password.errors }}</span>{% endif %}
@@ -44,6 +45,7 @@
     <input type="hidden" name="this_is_the_login_form" value="1" />
     <input type="hidden" name="next" value="{{ next }}" />
   </div>
+
   <div class="form-actions">
     <input type="submit" value="{% trans 'Log in' %}" class="btn btn-primary"/>
   </div>
