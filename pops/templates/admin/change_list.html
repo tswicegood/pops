@@ -80,6 +80,9 @@ $(function() {
 
       {% if action_form and cl.full_result_count %}{% admin_actions %}{% endif %}
 
+      {% if cl %}
+        {% search_form cl %}
+      {% endif %}
     </div>
   {% endif %}
 {% endblock %}

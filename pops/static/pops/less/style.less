@@ -191,6 +191,13 @@ td.action-checkbox {
     }
 }
 
+#changelist-search {
+  input.search-query,
+  div.search-results { float: left; }
+
+  div.search-results { padding: @gridGutterWidth / 4;}
+}
+
 #menu_search {
     @menu_search_width: 190px;
     position: absolute;
@@ -363,6 +370,8 @@ fieldset {
         padding: 0 1px;
     }
   }
+
+  .popup .subnav-fixed { top: 0; }
 
   .subnav .nav > li:first-child > a,
   .subnav .nav > li:first-child > a:hover {
