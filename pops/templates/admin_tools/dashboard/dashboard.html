@@ -53,37 +53,48 @@
 {% endif %}
 
 <div id="dashboard-panel">
-  
+
   {% comment %}
   <div class="btn-group">
-    <a class="btn dropdown-toggle" href="#" data-toggle="dropdown">{% trans "Modules" %} <span class="caret"></span></a>
-      {% if has_disabled_modules %}
-    <ul class="dropdown-menu">
-          {% spaceless %}
-          {% for module in dashboard.children %}
+    <a class="btn dropdown-toggle" href="#" data-toggle="dropdown">
+      {% trans "Modules" %} <span class="caret"></span>
+    </a>
+
+    {% if has_disabled_modules %}
+      <ul class="dropdown-menu">
+        {% for module in dashboard.children %}
           {% if not module.enabled %}
-          <li><a href="#" rel="module_{{ module.id }}" class="addlink add-dashboard-module">{{ module.title }}</a></li>
+            <li>
+              <a href="#" rel="module_{{ module.id }}" class="addlink add-dashboard-module">
+                {{ module.title }}
+              </a>
+            </li>
           {% endif %}
-          {% endfor %}
-          {% endspaceless %}
-    </ul>
-      {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
   {% endcomment %}
-    <h3><a href="#">{% trans "Modules" %}</a></h3>
-    {% if has_disabled_modules %}
+
+  <h3>
+    <a href="#">{% trans "Modules" %}</a>
+  </h3>
+
+  {% if has_disabled_modules %}
     <ul>
-        {% spaceless %}
-        {% for module in dashboard.children %}
+      {% for module in dashboard.children %}
         {% if not module.enabled %}
-        <li><a href="#" rel="module_{{ module.id }}" class="addlink add-dashboard-module">{{ module.title }}</a></li>
+          <li>
+            <a href="#" rel="module_{{ module.id }}" class="addlink add-dashboard-module">{{ module.title }}</a>
+          </li>
         {% endif %}
-        {% endfor %}
-        {% endspaceless %}
+      {% endfor %}
     </ul>
     {% endif %}
 </div>
+
 <div id="{{ dashboard.get_id }}" class="dashboard-container">
-    {% for module in dashboard.children %}
-{% admin_tools_render_dashboard_module module %}{% endfor %}
+  {% for module in dashboard.children %}
+    {% admin_tools_render_dashboard_module module %}
+  {% endfor %}
 </div>
