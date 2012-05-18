@@ -1,12 +1,8 @@
 {% extends "admin_tools/dashboard/module.html" %}
 {% load i18n %}
 {% block module_content %}
-  <ul class="nav nav-list nav-list-with-headers">
+  <ul class="nav nav-list">
     {% for child in module.children %}
-      <li class="nav-header">
-        <a href="{{ child.url }}">{{ child.title }}</a>
-      </li>
-
       {% for model in child.models %}
         <li>
 
