@@ -6,11 +6,6 @@
 
 <div id="{{ dashboard.get_id }}" class="dashboard-container masonry">
   {% for module in dashboard.children %}
-    <!-- {% cycle "1" "2" "3" as cell %} -->
-    {# {% if cell == "1" %}<div class="row row-fluid">{% endif %} #}
-      <div class="span4">
-        {% admin_tools_render_dashboard_module module %}
-      </div>
-    {# {% if cell == "3" %}</div>{% endif %} #}
+    {% admin_tools_render_dashboard_module module %}
   {% endfor %}
 </div>
