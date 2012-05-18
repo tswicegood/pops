@@ -15,13 +15,12 @@
         {% if child.add_url or child.change_url %}
           <ul class="unstyled pull-right actions">
             {% if child.change_url %}
-              <li class="pull-left"><a href="{{ child.change_url }}">{% trans "Change" %}</a>
+              <li class="pull-left"><a href="{{ child.change_url }}">{% trans "Change" %}</a></li>
             {% endif %}
 
             {% if child.add_url %}
-              <li class="pull-left"><a href="{{ child.add_url }}">{% trans "Add" %}</a>
+              <li class="pull-left"><a href="{{ child.add_url }}">{% trans "Add" %}</a></li>
             {% endif %}
-
           </ul>
         {% endif %}
 
