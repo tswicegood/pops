@@ -68,7 +68,7 @@ $(function() {
   {% if action_form or has_add_permission %}
     <div class="subnav">
       {% if has_add_permission %}
-        <div class="pull-right object-tools">
+        <div class="pull-right object-tools object-tools-right">
           {% block object-tools-items %}
             <a href="add/{% if is_popup %}?_popup=1{% endif %}" class="btn btn-primary">
               <i class="icon-plus icon-white"></i>
