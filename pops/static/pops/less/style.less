@@ -191,11 +191,15 @@ td.action-checkbox {
     }
 }
 
-#changelist-search {
-  input.search-query,
-  div.search-results { float: left; }
 
-  div.search-results { padding: @gridGutterWidth / 4;}
+@subNavPadding: @gridGutterWidth / 4;
+
+.object-tools-left {
+  .admin-model-search-container { padding-left: @subNavPadding; padding-right: @subNavPadding; }
+}
+
+#changelist-search {
+  div.search-results { padding: @subNavPadding; }
 }
 
 #menu_search {

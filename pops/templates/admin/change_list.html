@@ -78,11 +78,19 @@ $(function() {
         </div>
       {% endif %}
 
-      {% if action_form and cl.full_result_count %}{% admin_actions %}{% endif %}
+      <div class="pull-left object-tools object-tools-left">
+        {% block object-tools-items-left %}
+          <div class="pull-left admin-actions-container">
+            {% if action_form and cl.full_result_count %}{% admin_actions %}{% endif %}
+          </div>
 
-      {% if cl %}
-        {% search_form cl %}
-      {% endif %}
+          <div class="pull-left admin-model-search-container">
+            {% if cl %}
+              {% search_form cl %}
+            {% endif %}
+          </div>
+        {% endblock %}
+      </div>
     </div>
   {% endif %}
 {% endblock %}

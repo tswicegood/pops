@@ -3,12 +3,12 @@
 
 {% if cl.search_fields %}
   <form id="changelist-search" action="" method="get">
-    <input type="search" size="40" class="search-query"
+    <input type="search" size="40" class="pull-left search-query"
         name="{{ search_var }}" id="searchbar"
         value="{{ cl.query }}" placeholder="{% trans "Search" %} {{ cl.opts.verbose_name_plural|capfirst }}...">
 
     {% if show_result_count %}
-      <div class="small quiet search-results">
+      <div class="pull-left small quiet search-results">
         {% blocktrans count cl.result_count as counter %}{{ counter }} result{% plural %}{{ counter }} results{% endblocktrans %}
         (<a href="?{% if cl.is_popup %}pop=1{% endif %}">
           {% blocktrans with cl.full_result_count as full_result_count %}{{ full_result_count }} total{% endblocktrans %}
