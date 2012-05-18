@@ -13,3 +13,6 @@
 [submodule "vendor/less.js"]
 	path = vendor/less.js
 	url = git://github.com/cloudhead/less.js.git
+[submodule "vendor/masonry"]
+	path = vendor/masonry
+	url = git://github.com/desandro/masonry.git

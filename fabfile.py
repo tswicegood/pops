@@ -34,6 +34,16 @@ LESS = {
     "dest": join(STATIC_PATH, "less.js"),
 }
 
+MASONRY = {
+    "source": join(VENDOR_PATH, "masonry"),
+    "dest": join(STATIC_PATH, "masonry"),
+}
+
+
+@task
+def update_masonry():
+    local("cp %(source)s/jquery.masonry*.js %(dest)s" % MASONRY)
+
 
 @task
 def update_jquery():
