@@ -1,0 +1,32 @@
+{% extends "admin_tools/dashboard/module.html" %}
+{% load i18n %}
+
+{% block col-size %}span12{% endblock %}
+
+{% block module_content %}
+  <ul class="nav nav-list">
+    {% for child in module.children %}
+      <li>
+        {% if child.is_deletion %}
+          <span class="deletelink">
+            {% if child.content_type %}
+              {% filter capfirst %}{% trans child.content_type.name %}{% endfilter %}
+            {% endif %}
+            {{ child.object_repr }}
+          </span>
+        {% else %}
+          <a href="{{ admin_url }}{{ child.get_admin_url }}"
+              class="{% if child.is_addition %} addlink{% endif %}{% if child.is_change %} changelink{% endif %}">
+            {% if child.content_type %}
+              <span class="content-type">
+                {% filter capfirst %}{% trans child.content_type.name %}{% endfilter %}
+              </span>
+            {% endif %}
+
+            {{ child.object_repr }}
+          </a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
