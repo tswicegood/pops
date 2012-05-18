@@ -35,6 +35,7 @@
 <script src="{{ STATIC_URL }}jquery-ui-bootstrap/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
 <script src="{{ STATIC_URL }}chosen/chosen.jquery.js"></script>
+<script src="{{ STATIC_URL }}masonry/jquery.masonry.js"></script>
 <script src="{{ STATIC_URL }}pops/js/init-ui.js"></script>
 {% endblock %}
 
@@ -105,6 +106,7 @@ $(function(){
   });
 
   $(".alert").alert();
+  $(".masonry").masonry();
 });
 </script>
 </head>

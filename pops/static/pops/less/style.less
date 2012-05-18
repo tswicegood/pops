@@ -392,3 +392,62 @@ fieldset {
        .search-query { width: 190px; }
    }
 }
+
+
+#dashboard {
+  .module {
+    @dashboardRounding: @gridGutterWidth / 4;
+
+    margin-bottom: @gridGutterWidth;
+    .border-radius(@dashboardRounding);
+    border: 0;
+    // .box-shadow(1px 1px 5px 1px rgba(0, 0, 0, .2));
+
+    h2 {
+      .border-radius(@dashboardRounding @dashboardRounding 0 0);
+      background-color: @grayLighter;
+      padding-left: @gridGutterWidth;
+      border: 1px solid @grayLight;
+      border-bottom: 1px solid @grayLight;
+    }
+
+    .nav.nav-list {
+      border: 1px solid @grayLight;
+      border-top: 0;
+      .border-radius(0 0 @dashboardRounding @dashboardRounding);
+      padding: 0;
+
+      .nav-header {
+        margin: 0 0 0 0;
+      }
+
+      >li {
+        &:nth-child(even) { background-color: lighten(@grayLighter, 4%); }
+        &:last-child { .border-radius(0 0 @dashboardRounding @dashboardRounding); }
+
+        padding-left: @gridGutterWidth / 2;
+        padding-right: @gridGutterWidth / 2;
+        border-bottom: 1px solid @grayLighter;
+        overflow: hidden;
+
+        a {
+          display: block;
+          padding: @subNavPadding;
+        }
+
+        .actions li {
+          &:nth-child(even) { background-color: none; }
+          border: 0;
+          padding: 0;
+        }
+      }
+    }
+
+    .nav.nav-list.nav-list-with-headers {
+      >li {
+        padding: 0 0 0 @gridGutterWidth * .75;
+      }
+    }
+
+  }
+}

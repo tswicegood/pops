@@ -1,0 +1,36 @@
+{% extends "admin_tools/dashboard/module.html" %}
+{% load i18n %}
+{% block module_content %}
+  <ul class="unstyled nav nav-list nav-list-with-headers">
+    {% for child in module.children %}
+      <li class="nav-header">
+        <a href="{{ child.url }}">{{ child.title }}</a>
+      </li>
+
+      {% for model in child.models %}
+        <li>
+
+          <span class="pull-left">
+            {% if model.change_url %}
+              <a href="{{ model.change_url }}">{{ model.title }}</a>
+            {% else %}
+              {{ model.title }}
+            {% endif %}
+          </span>
+
+          {% if model.add_url or model.change_url %}
+            <ul class="unstyled pull-right actions">
+              {% if model.change_url %}
+                <li class="pull-left"><a href="{{ model.change_url }}">{% trans "Change" %}</a></li>
+              {% endif %}
+
+              {% if model.add_url %}
+                <li class="pull-left"><a href="{{ model.add_url }}">{% trans "Add" %}</a></li>
+              {% endif %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+{% endblock %}
