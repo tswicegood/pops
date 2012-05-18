@@ -1,5 +1,5 @@
 {% if not module.is_empty %}
-  <div id="module_{{ module.id }}" class="module">
+  <div id="module_{{ module.id }}" class="module {% block col-size %}span4{% endblock %}">
     {% if module.show_title %}
       <h2>{{ module.title }}</h2>
     {% endif %}
