@@ -122,6 +122,8 @@
                 reinitDateTimeShortCuts();
                 updateSelectFilter();
                 alternatingRows(row);
+                // Seem to be hidden w/o this...?
+                $(row).show();
             })
         });
     });
