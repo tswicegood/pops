@@ -3,11 +3,13 @@
 {% if not item.is_empty %}
 {% if index == 'submenu' %}
   {# submenu - generating sub-section #}
-  <li class="{% if not item.enabled %}disabled{% endif %}{% if selected %} active{% endif %}{% if item.css_classes %} {{ item.css_classes|join:' ' }}{% endif %}{% if item.children %} nav-header{% endif %}">
+  <li class="{% if not item.enabled %}disabled{% endif %}{% block submenu-active-class %}{% if selected %} active{% endif %}{% endblock %}{% if item.css_classes %} {{ item.css_classes|join:' ' }}{% endif %}{% if item.children %} nav-header{% endif %}">
     {% if item.children %}
       {{ item.title }}</li>
         {% for child_item in item.children %}
-          {% admin_tools_render_menu_item child_item 'submenu' %}
+          {% block submenu-render %}
+            {% admin_tools_render_menu_item child_item 'submenu' %}
+          {% endblock %}
         {% endfor %}
     {% else %}
       <a href="{% if item.url and item.enabled %}{{ item.url }}{% else %}#{% endif %}"
@@ -21,7 +23,7 @@
 {% else %}
   {# top-level menu - generating dropdowns for submenus #}
   <li class="{% spaceless %}{% if not item.enabled %} disabled{% endif %}
-    {% if selected %} active{% endif %}
+    {% block menu-active-class %}{% if selected %} active{% endif %}{% endblock %}
     {% if item.css_classes %} {{ item.css_classes|join:' ' }}{% endif %}
     {% if item.children %} dropdown{% endif %}{% endspaceless %}">
 
