@@ -122,9 +122,6 @@ $(function() {
       {% endblock %}
       {% block pagination %}{% bootstrap_pagination cl %}{% endblock %}
 
-      {% comment %}
-        Make sure that all of the actions form fields are here to be submitted
-      {% endcomment %}
       {% if action_form %}
         {% for field in action_form %}
           {{ field|as_hidden_field }}
