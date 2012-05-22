@@ -130,10 +130,9 @@ $(function() {
       </form>
     </div>
 
-
     {% block filters %}
       {% if cl.has_filters %}
-        <div id="changelist-filter" class="span2">
+        <div class="span2" id="changelist-filter">
           <h4>{% trans 'Available Filters' %}</h4>
           <ul class="nav nav-tabs nav-stacked">
             {% for spec in cl.filter_specs %}
