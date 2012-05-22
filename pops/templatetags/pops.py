@@ -15,13 +15,13 @@ def site_link():
     # TODO: Convert this to a template-based tag
     if settings.POPS_SITE_LINK:
         return '''
-            <li>
+            <li class="visible-desktop">
                 <a href="%s"  class="top-icon" title="%s" rel="popover"
                         data-placement="below">
                     <i class="icon-home icon-white"></i>
                 </a>
             </li>
-            <li class="divider-vertical"></li>
+            <li class="divider-vertical visible-desktop"></li>
             ''' % (settings.POPS_SITE_LINK, _('Open site'))
     else:
         return ''
