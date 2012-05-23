@@ -65,7 +65,7 @@ $(function() {
 {% block coltype %}flex{% endblock %}
 
 {% block object-tools %}
-  {% if action_form or has_add_permission %}
+  {% if action_form or has_add_permission or cl %}
     <div class="subnav">
       {% if has_add_permission %}
         <div class="pull-right object-tools object-tools-right">
