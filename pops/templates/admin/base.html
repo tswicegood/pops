@@ -111,7 +111,13 @@ $(function(){
   });
 
   $(".alert").alert();
-  $(".masonry").masonry();
+  var $masonry = $(".masonry");
+  if ($masonry) {
+    $masonry.masonry();
+    $(window).resize(function(){
+      $masonry.masonry("reload");
+    });
+  }
 });
 </script>
 </head>
