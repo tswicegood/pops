@@ -192,17 +192,19 @@ $(function(){
       </div>
     </div>
   {% endblock header %}
-
-  {% breadcrumbs %}
-  {% block breadcrumbs %}
-    /|{% trans "Home" %}
-    {% if title %}{{ title }}{% endif %}
-  {% endblock %}
-  {% endbreadcrumbs %}
 {% endif %}
 
 <!-- Container -->
 <div id="container" class="{% block container-class %}container-fluid{% endblock %}{% if is_popup %} container-popup{% endif %}">
+  {% if not is_popup %}
+    {% breadcrumbs %}
+    {% block breadcrumbs %}
+      /|{% trans "Home" %}
+      {% if title %}{{ title }}{% endif %}
+    {% endblock %}
+    {% endbreadcrumbs %}
+  {% endif %}
+
     <div class="main-container">
         {% block messages %}
           {% if messages %}
