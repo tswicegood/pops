@@ -6483,6 +6483,11 @@ fieldset h2 {
   .navbar-fixed-top .navbar-inner {
     padding: 0;
   }
+  body.change-list #content .span10,
+  body.change-list #content .span2 {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 /*!
  * Bootstrap Responsive v2.0.3
