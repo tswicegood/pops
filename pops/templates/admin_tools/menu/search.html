@@ -5,7 +5,7 @@
 
     <script>
     $(function() {
-        var $searchQuery = $('.search-query'),
+        var $searchQuery = $('.search-query[placeholder="{{ placeholder }}"]'),
             $dropdown = $searchQuery.parents(".dropdown");
         $dropdown.find(".dropdown-toggle").click(function() {
             setTimeout(function() {
