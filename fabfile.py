@@ -41,6 +41,12 @@ MASONRY = {
 
 
 @task
+def build_less():
+    local("lessc %s/pops/less/style.less %s/pops/css/style.css" % (
+            STATIC_PATH, STATIC_PATH))
+
+
+@task
 def update_masonry():
     local("cp %(source)s/jquery.masonry*.js %(dest)s" % MASONRY)
 
