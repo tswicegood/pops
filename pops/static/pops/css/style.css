@@ -7811,3 +7811,8 @@ fieldset h2 {
     overflow: visible !important;
   }
 }
+@media (min-width: 980px) {
+  #container {
+    padding-top: 60px;
+  }
+}
