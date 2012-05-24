@@ -125,6 +125,10 @@
                 alternatingRows(row);
                 // Seem to be hidden w/o this...?
                 $(row).show();
+                jQuery(row).find(".chzn-done").each(function(i, el) {
+                  jQuery("#" + el.id + "_chzn").remove();
+                  jQuery(el).removeClass("chzn-done").chosen();
+                });
             })
         })
         $("#{{ inline_admin_formset.formset.prefix }}-group").find(".add-row a").addClass("btn pull-right");
