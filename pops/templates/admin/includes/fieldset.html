@@ -8,7 +8,7 @@
         </a>
       </div>
 
-      <div id="{{ fieldset.name|slugify }}_fs" class="accordion-body collapse">
+      <div id="{{ fieldset.name|slugify }}_fs" class="accordion-body{% if fieldset.form.errors %} in{% endif %} collapse">
         <fieldset class="module aligned {{ fieldset.classes|cut:"collapse" }} accordion-inner">
           {% if fieldset.description %}
             <div class="description">{{ fieldset.description|safe }}</div>
