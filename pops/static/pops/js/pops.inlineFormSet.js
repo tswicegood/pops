@@ -7,7 +7,7 @@ if (typeof pops.inlineFormSet === 'undefined') {
     var $ = arguments[1] || window.jQuery,
         groupId = '#' + opts.prefix + '-group',
         rows = groupId + ' .tabular.inline-related tbody tr',
-        rowsSelector = 'tbody tr:not(.add-row):not(.deleted_row):not(.empty-form)',
+        rowsSelector = 'tbody tr:not(.add-row):not(.empty-form)',
         $table = $(rows).closest('table'),
         $totalForms = $table.closest('div.tabular').find('input[id$="TOTAL_FORMS"]'),
 
