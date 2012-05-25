@@ -475,3 +475,18 @@ fieldset {
     width: 100%;
   }
 }
+
+.icon-undo {
+  background-position: -336px -96px;
+  .flip();
+}
+
+/* TODO: Refactor into a more appropriate location */
+.flip() {
+  -webkit-transform: scaleX(-1);
+     -moz-transform: scaleX(-1);
+       -o-transform: scaleX(-1);
+         -ms-filter: "FlipH";
+          transform: scaleX(-1);
+             filter: FlipH;
+}

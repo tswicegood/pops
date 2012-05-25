@@ -76,7 +76,11 @@ if (typeof pops.inlineFormSet === 'undefined') {
           if ($row.is('.has_original')) {
             $this.prev('input').attr('checked', 'checked');
             $row.addClass('deleted_row').fadeTo("fast", 0.5);
-            // TODO: swap delete button for undo
+            $this.unbind('click', deleteLinkHandler)
+              .removeClass('delete')
+              .addClass('undo')
+              .html(undoButton)
+              .click(undoClickHandler);
           } else {
             $row.remove();
           }
@@ -119,6 +123,19 @@ if (typeof pops.inlineFormSet === 'undefined') {
             reorderRows($rows);
           }
           $totalForms.val($rows.length);
+        },
+
+        undoClickHandler = function() {
+          var $this = $(this),
+              $row = $this.closest('tr');
+          $this.prev('input').removeAttr('checked');
+          $row.removeClass('deleted_row').fadeTo('fast', 1.0);
+          $this.unbind('click', undoClickHandler)
+            .removeClass('undo')
+            .addClass('delete')
+            .click(deleteLinkHandler)
+            .html(opts.deleteHtml);
+          updatePositions();
         };
 
     // Not sure if this is needed?
@@ -132,6 +149,11 @@ if (typeof pops.inlineFormSet === 'undefined') {
     opts.deleteTextIcon = opts.deleteTextIcon || '<i class="icon icon-minus"></i> ';
     opts.deleteHtml = opts.deleteTextIcon + opts.deleteText;
     opts.emptyCssClass = opts.emptyCssClass || 'empty-form';
+    opts.undoTextIcon = opts.undoTextIcon || '<i class="icon icon-undo"></i> ';
+    opts.undoText = opts.undoText || 'Undo';
+
+    var undoButton = $('<span>' + opts.undoTextIcon + opts.undoText + '</span>');
+    undoButton.click(undoClickHandler);
 
     var formsetOptions = {
       prefix: opts.prefix,
