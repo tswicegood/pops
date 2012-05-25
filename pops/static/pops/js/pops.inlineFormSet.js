@@ -79,7 +79,7 @@ if (typeof pops.inlineFormSet === 'undefined') {
             $this.unbind('click', deleteLinkHandler)
               .removeClass('delete')
               .addClass('undo')
-              .html(undoButton)
+              .html(opts.undoHtml)
               .click(undoClickHandler);
           } else {
             $row.fadeTo("fast", 0, function() {
@@ -153,9 +153,7 @@ if (typeof pops.inlineFormSet === 'undefined') {
     opts.emptyCssClass = opts.emptyCssClass || 'empty-form';
     opts.undoTextIcon = opts.undoTextIcon || '<i class="icon icon-undo"></i> ';
     opts.undoText = opts.undoText || 'Undo';
-
-    var undoButton = $('<span>' + opts.undoTextIcon + opts.undoText + '</span>');
-    undoButton.click(undoClickHandler);
+    opts.undoHtml = opts.undoTextIcon + opts.undoText;
 
     var formsetOptions = {
       prefix: opts.prefix,
