@@ -7,6 +7,10 @@ if (typeof pops.inlineFormSet === 'undefined') {
     var $ = arguments[1] || window.jQuery,
         groupId = '#' + opts.prefix + '-group',
         rows = groupId + ' .tabular.inline-related tbody tr',
+        rowsSelector = 'tbody tr:not(.add-row):not(.deleted_row):not(.empty-form)',
+        $table = $(rows).closest('table'),
+        $totalForms = $table.closest('div.tabular').find('input[id$="TOTAL_FORMS"]'),
+
         alternatingRows = function(row) {
           $(rows).not('.add-row').removeClass('row1 row2')
             .filter(':even').addClass('row1').end()
@@ -59,13 +63,74 @@ if (typeof pops.inlineFormSet === 'undefined') {
               input.prepopulate(dependencies, input.attr('maxlength'));
             }
           });
+        },
+
+        deleteLinkForRow = function(row) {
+          $(row).find("td.delete a").click(deleteLinkHandler);
+        },
+
+        deleteLinkHandler = function() {
+          var $this = $(this),
+              $row = $this.closest('tr');
+          if ($row.is('.has_original')) {
+            $this.prev('input').attr('checked', 'checked');
+            $row.addClass('deleted_row').fadeTo("fast", 0.5);
+            // TODO: swap delete button for undo
+          } else {
+            $row.remove();
+          }
+          updatePositions();
+        },
+
+        updateIdFields = function(row, newPosition) {
+          var idExp = /([^ ]+?\-)([0-9]+|__prefix__)(\-[^ ]+)/i;
+
+          $.each(['select', 'input', 'a', 'textarea'], function (i, tagName) {
+            row.find(tagName).each(function() {
+              var $tag = $(this);
+              $.each(['id', 'name'], function (j, attrName) {
+                var oldVal = $tag.attr(attrName);
+                if (!oldVal) return;
+                var newVal = oldVal.replace(idExp, "$1" + newPosition + "$3");
+                $tag.attr(attrName, newVal);
+              });
+            });
+          });
+        },
+
+        reorderRows = function($rows) {
+          if (!opts.positionField) {
+            return;
+          }
+
+          if (!$rows) {
+            $rows = $table.find(rowsSelector);
+          }
+
+          $rows.each(function(i) {
+            $(this).find('td.' + opts.positionField + ' input').val(i + 1);
+          });
+        },
+
+        updatePositions = function() {
+          var $rows = $table.find(rowsSelector);
+          if (opts.positionField) {
+            reorderRows($rows);
+          }
+          $totalForms.val($rows.length);
         };
 
     // Not sure if this is needed?
     $('.tabular-inline textarea').addClass('xxlarge');
 
+    // TODO: Refactor all of these to allow false to turn them off
+    if (typeof opts.positionField === 'undefined') {
+      opts.positionField = 'order';
+    }
     opts.addTextIcon = opts.addTextIcon || '<i class="icon icon-plus"></i> ';
     opts.deleteTextIcon = opts.deleteTextIcon || '<i class="icon icon-minus"></i> ';
+    opts.deleteHtml = opts.deleteTextIcon + opts.deleteText;
+    opts.emptyCssClass = opts.emptyCssClass || 'empty-form';
 
     var formsetOptions = {
       prefix: opts.prefix,
@@ -73,8 +138,8 @@ if (typeof pops.inlineFormSet === 'undefined') {
       formCssClass: 'dynamic-' + opts.prefix,
       deleteCssClass: 'inline-deletelink btn',
       addCssClass: 'add-row',
-      deleteText: opts.deleteTextIcon + opts.deleteText,
-      emptyCssClass: 'empty-form',
+      deleteText: opts.deleteHtml,
+      emptyCssClass: opts.emptyCssClass,
       removed: alternatingRows,
       added: (function(row) {
         initPrepopulatedFields(row);
@@ -82,12 +147,20 @@ if (typeof pops.inlineFormSet === 'undefined') {
         updateSelectFilter();
         alternatingRows(row);
         reinitChosen(row);
-
-        // double check that it's shown (makes sure this works with dynamic_inlines_with_sorts)
-        $(row).show();
+        deleteLinkForRow(row);
+        updatePositions();
       })
     };
     $(rows).formset(formsetOptions);
+
+    // Create all of the delete buttons
+    $(rows).not('.' + opts.emptyCssClass).find('td.delete').each(function() {
+      var $this = $(this),
+          deleteLink = $('<a class="delete btn">' + opts.deleteHtml + '</a>');
+      $this.find('input:checkbox').hide();
+      deleteLink.click(deleteLinkHandler).css('cursor', 'pointer');
+      $this.append(deleteLink);
+    });
 
     $(groupId).find('.add-row a').addClass('btn pull-right');
   };
