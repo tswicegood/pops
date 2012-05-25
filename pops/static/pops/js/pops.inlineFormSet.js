@@ -82,6 +82,9 @@ if (typeof pops.inlineFormSet === 'undefined') {
         updateSelectFilter();
         alternatingRows(row);
         reinitChosen(row);
+
+        // double check that it's shown (makes sure this works with dynamic_inlines_with_sorts)
+        $(row).show();
       })
     };
     $(rows).formset(formsetOptions);
