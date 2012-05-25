@@ -75,16 +75,18 @@ if (typeof pops.inlineFormSet === 'undefined') {
               $row = $this.closest('tr');
           if ($row.is('.has_original')) {
             $this.prev('input').attr('checked', 'checked');
-            $row.addClass('deleted_row').fadeTo("fast", 0.5);
+            $row.addClass('deleted_row').fadeTo("fast", 0.5, updatePositions);
             $this.unbind('click', deleteLinkHandler)
               .removeClass('delete')
               .addClass('undo')
               .html(undoButton)
               .click(undoClickHandler);
           } else {
-            $row.remove();
+            $row.fadeTo("fast", 0, function() {
+              $row.remove();
+              updatePositions();
+            });
           }
-          updatePositions();
         },
 
         updateIdFields = function(row, newPosition) {
