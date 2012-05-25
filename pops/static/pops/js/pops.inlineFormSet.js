@@ -18,6 +18,7 @@ if (typeof pops.inlineFormSet === 'undefined') {
         },
 
         reinitDateTimeShortCuts = function() {
+          // TODO: Limit this to effected inputs
           // Reinitialize the calendar and clock widgets by force
           if (typeof DateTimeShortcuts != 'undefined') {
             $('.datetimeshortcuts').remove();
