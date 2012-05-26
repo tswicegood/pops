@@ -176,6 +176,16 @@ if (typeof pops.inlineFormSet === 'undefined') {
     };
     $(rows).formset(formsetOptions);
 
+    // once again, go back the jQuery with jQuery UI
+    window.jQuery(rows).closest('table').sortable({
+      items: 'tbody tr:visible:not(.add-row)',
+      tolerance: 'pointer',
+      axis: 'y',
+      cancel: 'input,button,select,a',
+      helper: 'clone',
+      update: updatePositions
+    });
+
     // Create all of the delete buttons
     $(rows).not('.' + opts.emptyCssClass).find('td.delete').each(function() {
       var $this = $(this),
