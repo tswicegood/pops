@@ -28,9 +28,15 @@
 
       <li class="action-item">
         <div id="submitChangeFormSaves" class="btn-group">
-          {% if show_save %}
-            <input type="submit" value="✓ {% trans 'Save' %}"
-                class="default btn btn-success" name="_save" {{ onclick_attrib }}>
+          {% if show_save or show_save_and_continue %}
+            {% if show_save and not show_save_and_continue %}
+              <input type="submit" value="✓ {% trans 'Save' %}"
+                  class="default btn btn-success" name="_save" {{ onclick_attrib }}>
+            {% else %}
+              <input type="submit" value="✓ {% trans 'Save and continue editing '%}"
+                  class="default btn btn-success" name="_continue" {{ onclick_attrib }}>
+            {% endif %}
+
             {% if show_save_and_continue or show_save_as_new or show_save_and_add_another %}
               <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                 <span class="caret"></span>
@@ -40,10 +46,10 @@
 
           {% if show_save_and_continue or show_save_as_new %}
             <ul class="dropdown-menu">
-              {% if show_save_and_continue %}
+              {% if show_save_and_add_another %}
                 <li>
-                  <a href="javascript:void(0);" data-name="_continue">
-                    {% trans 'Save and continue editing' %}
+                  <a href="javascript:void(0);" data-name="_addanother">
+                    {% trans 'Save and add another' %}
                   </a>
                 </li>
               {% endif %}
@@ -56,13 +62,14 @@
                 </li>
               {% endif %}
 
-              {% if show_save_and_add_another %}
+              {% if show_save and show_save_and_continue %}
                 <li>
-                  <a href="javascript:void(0);" data-name="_addanother">
-                    {% trans 'Save and add another' %}
+                  <a href="javascript:void(0);" data-name="_save">
+                    {% trans 'Save' %}
                   </a>
                 </li>
               {% endif %}
+
             </ul>
           {% endif %}
         </div>
