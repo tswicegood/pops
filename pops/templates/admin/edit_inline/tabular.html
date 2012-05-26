@@ -36,6 +36,25 @@
 
               <tr class="{% cycle "row1" "row2" %}{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}{% if forloop.last %} empty-form{% endif %}"
                   id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
+
+                <td class="hidden original">
+                  {% if inline_admin_form.has_auto_field %}
+                    {{ inline_admin_form.pk_field.field }}
+                  {% endif %}
+
+                  {{ inline_admin_form.fk_field.field }}
+
+                  {% for fieldset in inline_admin_form %}
+                    {% for line in fieldset %}
+                      {% for field in line %}
+                        {% if field.is_hidden %}
+                          {{ field.field }}
+                        {% endif %}
+                      {% endfor %}
+                    {% endfor %}
+                  {% endfor %}
+                </td>
+
                 {% for fieldset in inline_admin_form %}
                   {% for line in fieldset %}
                     {% for field in line %}
