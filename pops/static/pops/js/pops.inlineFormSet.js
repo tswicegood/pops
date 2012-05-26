@@ -74,7 +74,7 @@ if (typeof pops.inlineFormSet === 'undefined') {
           var $this = $(this),
               $row = $this.closest('tr');
           if ($row.is('.has_original')) {
-            $this.prev('input').attr('checked', 'checked');
+            $this.parent().find('input').attr('checked', 'checked');
             $row.addClass('deleted_row').fadeTo("fast", 0.5, updatePositions);
             $this.unbind('click', deleteLinkHandler)
               .removeClass('delete')
@@ -130,7 +130,7 @@ if (typeof pops.inlineFormSet === 'undefined') {
         undoClickHandler = function() {
           var $this = $(this),
               $row = $this.closest('tr');
-          $this.prev('input').removeAttr('checked');
+          $this.parent().find('input').removeAttr('checked');
           $row.removeClass('deleted_row').fadeTo('fast', 1.0);
           $this.unbind('click', undoClickHandler)
             .removeClass('undo')
@@ -187,13 +187,8 @@ if (typeof pops.inlineFormSet === 'undefined') {
     });
 
     // Create all of the delete buttons
-    $(rows).not('.' + opts.emptyCssClass).find('td.delete').each(function() {
-      var $this = $(this),
-          deleteLink = $('<a class="delete btn">' + opts.deleteHtml + '</a>');
-      $this.find('input:checkbox').hide();
-      deleteLink.click(deleteLinkHandler).css('cursor', 'pointer');
-      $this.append(deleteLink);
-    });
+    $(rows).not('.' + opts.emptyCssClass).find('a.delete')
+        .click(deleteLinkHandler).css('cursor', 'pointer');
 
     $(groupId).find('.add-row a').addClass('btn pull-right');
   };

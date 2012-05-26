@@ -52,9 +52,15 @@
                 {% endfor %}
 
                 {% if inline_admin_formset.formset.can_delete %}
-                  <td class="delete">
+                  <td>
                     {% if inline_admin_form.original %}
-                      {{ inline_admin_form.deletion_field.field }}
+                      <span class="hidden">
+                        {{ inline_admin_form.deletion_field.field }}
+                      </span>
+                      <a class="delete btn">
+                        <i class="icon-minus"></i>
+                        {% trans 'Remove' %}
+                      </a>
                     {% endif %}
                   </td>
                 {% endif %}
