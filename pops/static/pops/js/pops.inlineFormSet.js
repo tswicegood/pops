@@ -188,7 +188,7 @@ if (typeof pops.inlineFormSet === 'undefined') {
 
     // Create all of the delete buttons
     $(rows).not('.' + opts.emptyCssClass).find('a.delete')
-        .click(deleteLinkHandler).css('cursor', 'pointer');
+        .click(deleteLinkHandler);
 
     $(groupId).find('.add-row a').addClass('btn pull-right');
   };
