@@ -449,6 +449,17 @@ fieldset {
   }
 }
 
+div.tabular {
+  thead th.order,
+  tbody td.order {
+    display: none;
+  }
+
+  a.btn {
+    cursor: pointer;
+  }
+}
+
 @media (max-width: 979px) {
   .navbar-fixed-top .navbar-inner {
     padding: 0;
@@ -474,4 +485,19 @@ fieldset {
   [class*="span"], .row-fluid [class*="span"] {
     width: 100%;
   }
+}
+
+.icon-undo {
+  background-position: -336px -96px;
+  .flip();
+}
+
+/* TODO: Refactor into a more appropriate location */
+.flip() {
+  -webkit-transform: scaleX(-1);
+     -moz-transform: scaleX(-1);
+       -o-transform: scaleX(-1);
+         -ms-filter: "FlipH";
+          transform: scaleX(-1);
+             filter: FlipH;
 }

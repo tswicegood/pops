@@ -6479,6 +6479,13 @@ fieldset h2 {
 .dashboard-container .module .nav.nav-list.nav-list-with-headers > li {
   padding: 0 0 0 15px;
 }
+div.tabular thead th.order,
+div.tabular tbody td.order {
+  display: none;
+}
+div.tabular a.btn {
+  cursor: pointer;
+}
 @media (max-width: 979px) {
   .navbar-fixed-top .navbar-inner {
     padding: 0;
@@ -7827,3 +7834,13 @@ fieldset h2 {
     width: 100%;
   }
 }
+.icon-undo {
+  background-position: -336px -96px;
+  -webkit-transform: scalex(-1);
+  -moz-transform: scalex(-1);
+  -o-transform: scalex(-1);
+  -ms-filter: "FlipH";
+  transform: scalex(-1);
+  filter: FlipH;
+}
+/* TODO: Refactor into a more appropriate location */
