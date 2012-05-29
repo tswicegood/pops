@@ -28,50 +28,25 @@
 
       <li class="action-item">
         <div id="submitChangeFormSaves" class="btn-group">
-          {% if show_save or show_save_and_continue %}
-            {% if show_save and not show_save_and_continue %}
-              <input type="submit" value="✓ {% trans 'Save' %}"
-                  class="default btn btn-success" name="_save" {{ onclick_attrib }}>
-            {% else %}
-              <input type="submit" value="✓ {% trans 'Save and continue editing '%}"
-                  class="default btn btn-success" name="_continue" {{ onclick_attrib }}>
-            {% endif %}
+          <input type="submit" value="✓ {% trans buttons.primary_button.text %}"
+              class="default btn btn-success" name="{{ buttons.primary_button.key }}"
+              {{ onclick_attrib }}>
 
-            {% if show_save_and_continue or show_save_as_new or show_save_and_add_another %}
-              <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-              </button>
-            {% endif %}
+          {% if buttons.secondary_buttons %}
+            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+            </button>
           {% endif %}
 
-          {% if show_save_and_continue or show_save_as_new %}
-            <ul class="dropdown-menu">
-              {% if show_save_and_add_another %}
-                <li>
-                  <a href="javascript:void(0);" data-name="_addanother">
-                    {% trans 'Save and add another' %}
-                  </a>
-                </li>
-              {% endif %}
-
-              {% if show_save_as_new %}
-                <li>
-                  <a href="javascript:void(0);" data-name="_saveasnew">
-                    {% trans 'Save as new' %}
-                  </a>
-                </li>
-              {% endif %}
-
-              {% if show_save and show_save_and_continue %}
-                <li>
-                  <a href="javascript:void(0);" data-name="_save">
-                    {% trans 'Save' %}
-                  </a>
-                </li>
-              {% endif %}
-
-            </ul>
-          {% endif %}
+          <ul class="dropdown-menu">
+            {% for button in buttons.secondary_buttons %}
+              <li>
+                <a href="javascript:void(0);" data-name="{{ button.key }}">
+                  {% trans button.text %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
         </div>
       </li>
     </ul>
