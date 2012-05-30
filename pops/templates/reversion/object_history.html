@@ -27,15 +27,17 @@
                 </th>
 
                 <td class="name">
-                  {% if action.revision.user.first_name %}
-                    {{ action.revision.user.first_name }} {{ action.revision.user.last_name }}
-                  {% else %}
-                    {{ action.revision.user.username }}
-                  {% endif %}
+                  {% if action.revision.user %}
+                    {% if action.revision.user.first_name %}
+                      {{ action.revision.user.first_name }} {{ action.revision.user.last_name }}
+                    {% else %}
+                      {{ action.revision.user.username }}
+                    {% endif %}
 
-                  <a href="{% url "admin:auth_user_change" action.revision.user.pk %}">
-                    <i class="icon-pencil"></i>
-                  </a>
+                    <a href="{% url "admin:auth_user_change" action.revision.user.pk %}">
+                      <i class="icon-pencil"></i>
+                    </a>
+                  {% endif %}
                 </td>
 
                 <td>{{action.headline}}</td>
