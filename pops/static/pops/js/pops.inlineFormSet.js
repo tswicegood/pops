@@ -7,8 +7,10 @@ if (typeof pops.inlineFormSet === 'undefined') {
     var $ = arguments[1] || window.jQuery,
         groupId = '#' + opts.prefix + '-group',
         rows = groupId + ' .tabular.inline-related tbody tr',
-        rowsSelector = 'tbody tr:not(.add-row):not(.empty-form)',
-        $table = $(rows).closest('table'),
+        rowsSelector = function($table) {
+          return $table.children('tbody').children('tr:not(.add-row):not(.empty-form)');
+        },
+        $table = $(rows).closest('fieldset').children('table'),
         $totalForms = $table.closest('div.tabular').find('input[id$="TOTAL_FORMS"]'),
 
         alternatingRows = function(row) {
@@ -111,7 +113,7 @@ if (typeof pops.inlineFormSet === 'undefined') {
           }
 
           if (!$rows) {
-            $rows = $table.find(rowsSelector);
+            $rows = rowsSelector($table);
           }
 
           $rows.each(function(i) {
@@ -120,7 +122,7 @@ if (typeof pops.inlineFormSet === 'undefined') {
         },
 
         updatePositions = function() {
-          var $rows = $table.find(rowsSelector);
+          var $rows = rowsSelector($table);
           if (opts.positionField) {
             reorderRows($rows);
           }
