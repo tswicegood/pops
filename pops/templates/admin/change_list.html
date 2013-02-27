@@ -37,12 +37,14 @@ $(function() {
 (function($) {
     $(document).ready(function($) {
         $("tr input.action-select").actions({
-          actionContainer: 'div.actions',
-          counterContainer: '.selection_info, .selection-info span.action-counter',
-          allContainer: '.selection-info, .selection-info span.all',
-          acrossQuestions: 'span.question',
-          acrossClears: 'span.clear',
-          acrossInput: "div.changelist-actions input.select-across"
+          // actionContainer: '',  // default: "div.actions"
+          // counterContainer: '',  // default: "span.action-counter"
+          // allContainer: '',  // default: "div.actions span.all"
+          acrossInput: "#id_select_across",  // default: "div.actions input.select-across"
+          // acrossQuestions: '', // default: "div.actions span.question"
+          // acrossClears: '',  // default: "div.actions span.clear"
+          // allToggle: '',  // default:  "#action-toggle"
+          selectedClass: "active"  // default: "selected"
         });
     });
 })(django.jQuery);
@@ -111,7 +113,17 @@ $(function() {
 
     <div class="span1{% if cl.has_filters %}0{% else %}2{% endif %}" id="changelist">
       {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
-
+{% comment %}
+TODO FIXME :This action block is hacked in.
+{% endcomment %}
+<div class="actions">
+  <span class="action-counter" style="display: inline;">0 selected</span>
+  <span class="all hide">All selected</span>
+  <span class="question hide">
+      <a title="Click here to select the objects across all pages" href="javascript:;">Select all</a>
+  </span>
+  <span class="clear hide"><a href="javascript:;">Clear selection</a></span>
+</div>
       <form id="changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
       {% if cl.formset %}
         <div>{{ cl.formset.management_form }}</div>
