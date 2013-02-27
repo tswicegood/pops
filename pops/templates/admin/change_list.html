@@ -41,10 +41,12 @@ $(function() {
           // counterContainer: '',  // default: "span.action-counter"
           // allContainer: '',  // default: "div.actions span.all"
           acrossInput: "#id_select_across",  // default: "div.actions input.select-across"
-          // acrossQuestions: '', // default: "div.actions span.question"
-          // acrossClears: '',  // default: "div.actions span.clear"
           // allToggle: '',  // default:  "#action-toggle"
           selectedClass: "active"  // default: "selected"
+
+          // DUE TO A BUG IN DJANGO, WE HAVE TO USE THESE DEFAULTs:
+          // acrossQuestions: '', // default: "div.actions span.question"
+          // acrossClears: '',  // default: "div.actions span.clear"
         });
     });
 })(django.jQuery);
@@ -115,14 +117,17 @@ $(function() {
       {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
 {% comment %}
 TODO FIXME :This action block is hacked in.
+django's actions.js requires A tags inside questions
 {% endcomment %}
-<div class="actions">
-  <span class="action-counter" style="display: inline;">0 selected</span>
-  <span class="all hide">All selected</span>
-  <span class="question hide">
-      <a title="Click here to select the objects across all pages" href="javascript:;">Select all</a>
+<div class="actions btn-group">
+  <span class="action-counter btn">0 selected</span>
+  <span class="all btn hide">All selected</span>
+  <span class="question btn hide">
+    <a title="Click here to select the objects across all pages" href="javascript:void(0);"><i class="icon-asterisk"></i> Select all</a>
   </span>
-  <span class="clear hide"><a href="javascript:;">Clear selection</a></span>
+  <span class="clear btn hide" style="clear:none;">{# we have to use the `clear` class due to a bug in django. #}
+    <a href="javascript:void(0);"><i class="icon-trash"></i> Clear selection</a>
+  </span>
 </div>
       <form id="changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
       {% if cl.formset %}
