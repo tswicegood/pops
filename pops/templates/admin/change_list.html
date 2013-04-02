@@ -120,12 +120,12 @@ TODO FIXME :This action block is hacked in.
 django's actions.js requires A tags inside questions
 {% endcomment %}
 <div class="actions btn-group">
-  <span class="action-counter btn">0 selected</span>
-  <span class="all btn hide">All selected</span>
-  <span class="question btn hide">
+  <span class="action-counter btn btn-mini">0 selected</span>
+  <span class="all btn btn-mini hide">All selected</span>
+  <span class="question btn btn-mini hide">
     <a title="Click here to select the objects across all pages" href="javascript:void(0);"><i class="icon-asterisk"></i> Select all</a>
   </span>
-  <span class="clear btn hide" style="clear:none;">{# we have to use the `clear` class due to a bug in django. #}
+  <span class="clear btn btn-mini hide" style="clear:none;">{# we have to use the `clear` class due to a bug in django. #}
     <a href="javascript:void(0);"><i class="icon-trash"></i> Clear selection</a>
   </span>
 </div>
