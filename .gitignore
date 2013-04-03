@@ -5,3 +5,7 @@ MANIFEST
 *.egg-info
 build
 .directory
+
+# IDEs
+*.sublime-project
+*.sublime-workspace

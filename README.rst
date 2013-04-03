@@ -1,4 +1,4 @@
-Pops: Bootstraping Django's Admin
+Pops: Bootstrapping Django's Admin
 =================================
 Introducing Django's `admin`_ to Twitter's `Bootstrap`_.
 
