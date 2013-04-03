@@ -37,12 +37,16 @@ $(function() {
 (function($) {
     $(document).ready(function($) {
         $("tr input.action-select").actions({
-          actionContainer: 'div.actions',
-          counterContainer: '.selection_info, .selection-info span.action-counter',
-          allContainer: '.selection-info, .selection-info span.all',
-          acrossQuestions: 'span.question',
-          acrossClears: 'span.clear',
-          acrossInput: "div.changelist-actions input.select-across"
+          // actionContainer: '',  // default: "div.actions"
+          // counterContainer: '',  // default: "span.action-counter"
+          // allContainer: '',  // default: "div.actions span.all"
+          acrossInput: "#id_select_across",  // default: "div.actions input.select-across"
+          // allToggle: '',  // default:  "#action-toggle"
+          selectedClass: "active"  // default: "selected"
+
+          // DUE TO A BUG IN DJANGO, WE HAVE TO USE THESE DEFAULTs:
+          // acrossQuestions: '', // default: "div.actions span.question"
+          // acrossClears: '',  // default: "div.actions span.clear"
         });
     });
 })(django.jQuery);
@@ -91,6 +95,22 @@ $(function() {
           </div>
         {% endblock %}
       </div>
+{% comment %}
+TODO FIXME :This action block is hacked in.
+django's actions.js requires A tags inside questions.
+TODO fix indent level after next release. Left unintented on purpose to help
+help debug merge conflicts.
+{% endcomment %}
+<div class="actions btn-group">
+  <span class="action-counter btn btn-mini">0 selected</span>
+  <span class="all btn btn-mini hide">All selected</span>
+  <span class="question btn btn-mini hide">
+    <a title="Click here to select the objects across all pages" href="javascript:void(0);"><i class="icon-asterisk"></i> Select all</a>
+  </span>
+  <span class="clear btn btn-mini hide" style="clear:none;">{# we have to use the `clear` class due to a bug in django. #}
+    <a href="javascript:void(0);"><i class="icon-trash"></i> Clear selection</a>
+  </span>
+</div>
     </div>
   {% endif %}
 {% endblock %}
@@ -111,7 +131,6 @@ $(function() {
 
     <div class="span1{% if cl.has_filters %}0{% else %}2{% endif %}" id="changelist">
       {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
-
       <form id="changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}>{% csrf_token %}
       {% if cl.formset %}
         <div>{{ cl.formset.management_form }}</div>
