@@ -1,6 +1,6 @@
 {
   "name": "pops",
-  "version": "0.1.0",
+  "version": "0.2alpha.0",
   "description": "Bootstrap styling for Django's admin",
   "install_requires": [
     "django-admin-tools>=0.4.1",
