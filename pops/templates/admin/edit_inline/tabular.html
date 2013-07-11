@@ -1,4 +1,4 @@
-{% load i18n adminmedia admin_modify %}
+{% load i18n admin_modify %}
 <div class="inline-group" id="{{ inline_admin_formset.formset.prefix }}-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
 
@@ -103,7 +103,7 @@ window.pops && window.pops.inlineFormSet || document.write(
   $(document).ready(function($) {
     pops.inlineFormSet({
       prefix: "{{ inline_admin_formset.formset.prefix }}",
-      adminMediaPrefix: "{% admin_media_prefix %}",
+      adminMediaPrefix: "{{ STATIC_URL }}admin/",
       addText: "{% blocktrans with inline_admin_formset.opts.verbose_name|title as verbose_name %}Add another {{ verbose_name }}{% endblocktrans %}",
       deleteText: "{% trans 'Remove' %}"
     }, $);

@@ -14,8 +14,8 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}jquery-ui-bootstrap/css/jquery-ui-1.8.16.custom.css">
 <!--[if IE]><link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}jquery-ui-bootstrap/css/jquery.ui.1.8.16.ie.css"><![endif]-->
 
-<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% load adminmedia %}{% admin_media_prefix %}css/ie.css{% endblock %}" /><![endif]-->
-{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% admin_media_prefix %}css/rtl.css{% endblock %}" />{% endif %}
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{{ STATIC_URL }}admin/css/ie.css{% endblock %}" /><![endif]-->
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{{ STATIC_URL }}admin/css/rtl.css{% endblock %}" />{% endif %}
 
 {% comment %}
   Make sure that the main styles are the last thing to actually load
@@ -33,7 +33,7 @@
 
 {% block javascript %}
 <script>
-  window.__admin_media_prefix__ = "{% filter escapejs %}{% admin_media_prefix %}{% endfilter %}";
+  window.__admin_media_prefix__ = "{% filter escapejs %}{{ STATIC_URL }}admin/{% endfilter %}";
 </script>
 
 <script src="{{ STATIC_URL }}jquery/jquery.min.js"></script>
